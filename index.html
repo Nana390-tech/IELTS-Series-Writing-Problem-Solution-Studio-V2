@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solution Sentence Studio | IELTS Task 2</title>
+<style>
+:root{
+  --navy:#1B2F6B; --cobalt:#2B4BB8; --cobalt-l:#E8EEFC;
+  --rasp:#C2185B; --rasp-d:#9C1249; --rasp-l:#FCE4EE;
+  --sun:#F4B400; --ok:#1F8A63; --ok-l:#E2F5EC; --bad:#D03A3A; --bad-l:#FDECEC; --warn:#B26A00; --warn-l:#FFF4DE;
+  --ink:#1F2640; --muted:#5B6485; --bg:#F4F6FC; --card:#fff; --line:#DCE3F5;
+  --c-modal:#2B4BB8; --c-solution:#1F8A63; --c-cond:#7B3FA8; --c-cause:#C2560B; --c-purpose:#00838F; --c-passive:#C2185B;
+  --r:16px; --sh:0 4px 16px rgba(27,47,107,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:17.5px}
+body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;min-height:100vh}
+.ar{direction:rtl;unicode-bidi:embed;font-family:Tahoma,'Segoe UI',Arial,sans-serif}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+input[type=text],textarea{font-family:inherit;font-size:1.05rem;width:100%;border:2px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff;color:var(--ink);transition:border .15s}
+input[type=text]:focus,textarea:focus{border-color:var(--cobalt);outline:none}
+textarea{resize:vertical;min-height:90px;line-height:1.6}
+
+/* Header */
+header{background:linear-gradient(120deg,var(--navy) 0%,var(--cobalt) 70%,#4161cc 100%);color:#fff;padding:22px 16px 18px;position:relative;overflow:hidden}
+header::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(194,24,91,.22);right:-80px;bottom:-140px}
+.hwrap{max-width:1040px;margin:0 auto;position:relative;z-index:1;display:flex;gap:22px;align-items:flex-end;flex-wrap:wrap;justify-content:space-between}
+.htitle h1{font-family:Georgia,'Times New Roman',serif;font-size:1.85rem;line-height:1.2}
+.htitle h1 span{color:#FFC6DC}
+.htitle p{opacity:.88;font-size:.95rem;margin-top:4px}
+.hchips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:5px 14px;font-weight:700;font-size:.9rem}
+.chip b{color:var(--sun)}
+/* Staircase */
+.stairs{display:flex;align-items:flex-end;gap:4px;height:96px;position:relative}
+.step{width:30px;border-radius:6px 6px 0 0;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-bottom:none;display:flex;align-items:flex-start;justify-content:center;font-size:.72rem;font-weight:800;padding-top:3px;color:rgba(255,255,255,.75);transition:.4s}
+.step.done{background:var(--rasp);border-color:#FF8DB8;color:#fff}
+.step.here{box-shadow:0 0 0 3px var(--sun)}
+.climber{position:absolute;font-size:1.35rem;transition:left .6s ease,bottom .6s ease;transform:translateX(-50%)}
+.stairs-cap{font-size:.72rem;text-align:right;opacity:.85;margin-top:4px;letter-spacing:.4px}
+
+/* Nav */
+nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.nwrap{max-width:1040px;margin:0 auto;display:flex;gap:6px;padding:8px 12px;overflow-x:auto}
+.nbtn{border:none;background:transparent;color:var(--navy);font-weight:700;padding:9px 14px;border-radius:10px;white-space:nowrap;font-size:.95rem}
+.nbtn:hover{background:var(--cobalt-l)}
+.nbtn.on{background:var(--navy);color:#fff}
+main{max-width:1040px;margin:0 auto;padding:20px 14px 60px}
+.view{display:none;animation:fade .3s ease}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+h2.vt{font-family:Georgia,serif;color:var(--navy);font-size:1.6rem;line-height:1.25}
+.vsub{color:var(--muted);margin:4px 0 18px}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:22px;margin-bottom:16px}
+
+/* Home map */
+.intro-card{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;border-left:6px solid var(--rasp)}
+.intro-card .ar{color:var(--muted);font-size:.95rem;margin-top:6px}
+.map{display:grid;gap:12px}
+.stage{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:16px 18px;border:2px solid transparent;cursor:pointer;transition:.18s;text-align:left;width:100%}
+.stage:hover{border-color:var(--cobalt);transform:translateY(-2px)}
+.stage .num{width:56px;height:56px;border-radius:14px;background:var(--cobalt-l);color:var(--navy);font-weight:900;font-size:1.4rem;display:flex;align-items:center;justify-content:center}
+.stage.done .num{background:var(--rasp);color:#fff}
+.stage h3{font-size:1.12rem;color:var(--navy)}
+.stage h3 .ar{font-weight:600;font-size:.95rem;color:var(--rasp);margin-left:8px}
+.stage p{color:var(--muted);font-size:.93rem}
+.stage .lvl{font-size:.72rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--cobalt)}
+.status{font-weight:800;font-size:.85rem;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.status.todo{background:var(--cobalt-l);color:var(--navy)}
+.status.next{background:var(--sun);color:var(--navy)}
+.status.fin{background:var(--ok-l);color:var(--ok)}
+.phase{font-size:.78rem;font-weight:800;letter-spacing:1px;color:var(--rasp);text-transform:uppercase;margin:14px 0 2px 4px}
+
+/* Stage header */
+.shead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.back{border:2px solid var(--line);background:#fff;border-radius:10px;padding:7px 14px;font-weight:700;color:var(--navy)}
+.back:hover{border-color:var(--cobalt)}
+.meter{background:#fff;border-radius:12px;box-shadow:var(--sh);padding:10px 16px;font-weight:700;color:var(--navy);font-size:.92rem;min-width:220px}
+.mbar{height:10px;background:var(--cobalt-l);border-radius:999px;margin-top:6px;overflow:hidden}
+.mfill{height:100%;background:linear-gradient(90deg,var(--cobalt),var(--rasp));border-radius:999px;transition:width .4s}
+.howto{background:var(--cobalt-l);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:.95rem}
+.howto .ar{display:block;color:var(--muted);margin-top:4px;font-size:.92rem}
+
+/* Structure tag */
+.tag{display:inline-block;font-size:.75rem;font-weight:800;letter-spacing:.4px;padding:3px 10px;border-radius:999px;color:#fff;margin-bottom:8px}
+.t-modal{background:var(--c-modal)}.t-solution{background:var(--c-solution)}.t-cond{background:var(--c-cond)}.t-cause{background:var(--c-cause)}.t-purpose{background:var(--c-purpose)}.t-passive{background:var(--c-passive)}.t-free{background:#6B7393}
+
+/* Item nav dots */
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 14px}
+.dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:#fff;font-weight:800;font-size:.85rem;color:var(--muted)}
+.dot.cur{border-color:var(--cobalt);color:var(--cobalt)}
+.dot.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+
+/* Tiles */
+.answer-zone{min-height:66px;border:2px dashed var(--cobalt);border-radius:14px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;background:var(--cobalt-l);margin-bottom:12px;align-items:center}
+.answer-zone.empty::before{content:"Tap the words below in the right order…";color:var(--muted);font-size:.92rem;padding-left:6px}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.tile{border:2px solid var(--line);background:#fff;border-radius:10px;padding:8px 13px;font-weight:700;font-size:1.02rem;color:var(--navy);transition:.12s}
+.tile:hover{border-color:var(--cobalt);transform:translateY(-1px)}
+.tile.used{visibility:hidden}
+.answer-zone .tile{background:#fff;border-color:var(--cobalt)}
+
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{border:none;border-radius:999px;padding:10px 22px;font-weight:800}
+.btn.p{background:var(--rasp);color:#fff}.btn.p:hover{background:var(--rasp-d)}
+.btn.s{background:var(--navy);color:#fff}.btn.s:hover{background:var(--cobalt)}
+.btn.g{background:#fff;color:var(--navy);border:2px solid var(--line)}.btn.g:hover{border-color:var(--cobalt)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* Feedback */
+.fb{margin-top:12px;border-radius:12px;padding:0;overflow:hidden}
+.fb:empty{display:none}
+.fb .row{padding:9px 14px;font-size:.95rem;display:flex;gap:10px;align-items:flex-start}
+.fb .row.ok{background:var(--ok-l);color:#14583F}
+.fb .row.bad{background:var(--bad-l);color:#8E2323}
+.fb .row.warn{background:var(--warn-l);color:#6E4300}
+.fb .row .ar{display:block;font-size:.88rem;opacity:.85}
+.fb .row .ic{font-weight:900;min-width:18px}
+.model{margin-top:10px;background:#F7F3FF;border-left:4px solid var(--c-cond);border-radius:10px;padding:10px 14px;font-size:.95rem}
+.model b{color:var(--c-cond)}
+
+.prompt-line{font-size:1.15rem;font-weight:600;color:var(--navy);background:#FAFBFF;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.prompt-line .wrong{text-decoration:underline wavy var(--bad);text-underline-offset:4px}
+.instr{font-weight:800;color:var(--rasp);font-size:.92rem;margin-bottom:6px}
+.starter-wrap{display:flex;flex-direction:column;gap:6px}
+.starter{font-weight:700;color:var(--navy);font-size:1.08rem}
+
+/* Topic tabs */
+.ttabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.ttab{border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 14px;font-weight:700;color:var(--navy)}
+.ttab.on{border-color:var(--rasp);background:var(--rasp-l);color:var(--rasp-d)}
+.ttab.ok::after{content:" ✓";color:var(--ok)}
+.factbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:16px}
+.fact{border-radius:12px;padding:10px 14px;font-size:.93rem}
+.fact h4{font-size:.78rem;letter-spacing:.6px;text-transform:uppercase;margin-bottom:3px}
+.fact.p{background:var(--bad-l)}.fact.p h4{color:var(--bad)}
+.fact.c{background:#FFF0E3}.fact.c h4{color:var(--c-cause)}
+.fact.s{background:var(--ok-l)}.fact.s h4{color:var(--ok)}
+.fact.r{background:#F3EAFB}.fact.r h4{color:var(--c-cond)}
+.slot{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;background:#fff}
+.slot.pass{border-color:var(--ok);background:#FBFFFD}
+.slot .sl-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.slot .sl-t{font-weight:800;color:var(--navy)}
+.frame{font-size:.9rem;color:var(--muted);margin:4px 0 8px}
+.frame code{font-family:inherit;background:var(--cobalt-l);color:var(--navy);padding:1px 6px;border-radius:6px;font-weight:700}
+.mini{border:none;background:var(--cobalt-l);color:var(--navy);border-radius:999px;padding:5px 12px;font-weight:700;font-size:.85rem}
+.mini:hover{background:#D6E0FA}
+.wordhelp{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}
+.wh{background:#F1F3FA;border-radius:8px;padding:3px 9px;font-size:.85rem;color:var(--navy)}
+
+/* Prompt choice */
+.qchoice{display:grid;gap:10px}
+.qbtn{text-align:left;border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px 16px;font-size:1rem;color:var(--ink)}
+.qbtn:hover{border-color:var(--cobalt)}
+.qbtn.on{border-color:var(--rasp);background:var(--rasp-l)}
+.qbtn b{color:var(--navy)}
+.essayq{background:var(--navy);color:#fff;border-radius:14px;padding:16px 18px;font-size:1.05rem;margin-bottom:14px}
+.essayq small{display:block;opacity:.75;font-size:.78rem;letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px}
+
+/* Assembled paragraph */
+.assembled{background:#FFFDF7;border:1px solid #F0E3BF;border-radius:14px;padding:16px 18px;line-height:1.9;font-size:1.05rem}
+.hl{border-radius:5px;padding:1px 3px}
+.hl-modal{background:#DCE4FB}.hl-solution{background:#D7F1E5}.hl-cond{background:#ECDDF7}.hl-cause{background:#FDE3CF}.hl-purpose{background:#D2EFF1}.hl-passive{background:#FAD6E4}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:.8rem}
+.legend span{padding:2px 9px;border-radius:6px;font-weight:700}
+
+/* Essay studio */
+.studio{display:grid;grid-template-columns:1fr 310px;gap:16px;align-items:start}
+.panel-side{position:sticky;top:64px}
+.part-h{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.part-h h4{color:var(--navy);font-size:1.05rem}
+.wc{font-size:.8rem;color:var(--muted);font-weight:700}
+.essay-part textarea{min-height:130px}
+.ideas{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.ideas div{background:#F7F8FD;border-radius:10px;padding:10px 12px;font-size:.88rem}
+.ideas h5{font-size:.75rem;letter-spacing:.6px;text-transform:uppercase;color:var(--rasp);margin-bottom:4px}
+.ideas ul{padding-left:18px}
+.chk h4{font-size:.95rem;color:var(--navy);margin:12px 0 6px}
+.chk h4:first-child{margin-top:0}
+.wcbig{font-size:2rem;font-weight:900;color:var(--navy);line-height:1}
+.wcbig small{font-size:.85rem;color:var(--muted);font-weight:700}
+.schips{display:grid;gap:6px}
+.schip{display:flex;justify-content:space-between;align-items:center;border-radius:10px;padding:6px 10px;font-size:.86rem;font-weight:700;background:#F1F3FA;color:var(--muted)}
+.schip.on{color:#fff}
+.schip.on.k-modal{background:var(--c-modal)}.schip.on.k-solution{background:var(--c-solution)}.schip.on.k-cond{background:var(--c-cond)}.schip.on.k-cause{background:var(--c-cause)}.schip.on.k-purpose{background:var(--c-purpose)}.schip.on.k-passive{background:var(--c-passive)}
+.vchips{display:flex;flex-wrap:wrap;gap:5px}
+.vchip{font-size:.78rem;background:var(--ok-l);color:var(--ok);border-radius:6px;padding:2px 7px;font-weight:700}
+.errs{font-size:.85rem}
+.errs li{margin:0 0 6px 16px;color:#8E2323}
+.errs .none{color:var(--ok);list-style:none;margin-left:0}
+
+/* Drawer */
+.fab{position:fixed;right:16px;bottom:16px;z-index:80;background:var(--rasp);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-weight:800;box-shadow:0 6px 18px rgba(194,24,91,.35)}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(430px,92vw);background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,.18);z-index:90;transform:translateX(105%);transition:transform .3s ease;overflow-y:auto;padding:20px}
+.drawer.open{transform:none}
+.drawer h3{font-family:Georgia,serif;color:var(--navy);margin-bottom:12px}
+.dclose{position:absolute;top:14px;right:14px;border:none;background:var(--cobalt-l);border-radius:50%;width:36px;height:36px;font-weight:900;color:var(--navy)}
+.ref{border-left:5px solid;border-radius:10px;background:#FAFBFF;padding:10px 12px;margin-bottom:10px;font-size:.9rem}
+.ref b{display:block;font-size:.98rem}
+.ref .pat{font-weight:700;margin:3px 0}
+.ref .ex{color:var(--muted);font-style:italic}
+
+/* Progress */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:14px 0}
+.stat{background:var(--cobalt-l);border-radius:12px;padding:14px;text-align:center}
+.stat .v{font-size:1.6rem;font-weight:900;color:var(--navy)}
+.stat .l{font-size:.75rem;font-weight:800;color:var(--muted);letter-spacing:.5px}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin:12px 0}
+.badge{background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px;text-align:center;opacity:.4}
+.badge.on{opacity:1;border-color:var(--rasp)}
+.badge .i{font-size:1.8rem}
+.badge .n{font-size:.8rem;font-weight:800;color:var(--navy)}
+.cert{background:#fff;border:10px double var(--rasp);border-radius:10px;padding:34px 26px;text-align:center;max-width:680px;margin:18px auto}
+.cert h3{font-family:Georgia,serif;color:var(--navy);font-size:1.8rem}
+.cert .nm{font-family:Georgia,serif;font-size:1.6rem;color:var(--rasp);border-bottom:2px solid var(--rasp);display:inline-block;padding:0 26px 4px;margin:12px 0}
+.cert p{color:var(--muted);margin:5px 0}
+.cert .cr{margin-top:14px;font-weight:800;color:var(--navy);font-size:.85rem}
+
+.toast{position:fixed;left:50%;top:18px;transform:translate(-50%,-250%);background:var(--navy);color:#fff;padding:12px 22px;border-radius:999px;font-weight:800;z-index:200;transition:transform .35s;box-shadow:var(--sh)}
+.toast.show{transform:translate(-50%,0)}
+.confetti{position:fixed;top:-14px;width:10px;height:12px;z-index:300;pointer-events:none}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:22px;border-top:1px solid var(--line)}
+footer b{color:var(--navy)}
+
+@media(max-width:860px){.studio{grid-template-columns:1fr}.panel-side{position:static}}
+@media(max-width:600px){
+  html{font-size:16.5px}
+  .htitle h1{font-size:1.45rem}
+  .stage{grid-template-columns:48px 1fr}
+  .stage .num{width:46px;height:46px;font-size:1.15rem}
+  .stage .status{grid-column:2;justify-self:start}
+  .intro-card{grid-template-columns:1fr}
+  .ideas{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  header,nav,.fab,.drawer,footer,.no-print{display:none!important}
+  .view{display:none!important}
+  .view.print-me{display:block!important}
+  .cert{border-color:#C2185B}
+}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<header>
+  <div class="hwrap">
+    <div class="htitle">
+      <h1>✍️ Solution Sentence <span>Studio</span></h1>
+      <p>IELTS Writing Task 2 · Problem–Solution essays · From one sentence to a full essay</p>
+      <div class="hchips">
+        <div class="chip">⭐ Points: <b id="hPoints">0</b></div>
+        <div class="chip">🏅 Badges: <b id="hBadges">0</b>/7</div>
+        <div class="chip">📈 Stages: <b id="hStages">0</b>/7</div>
+      </div>
+    </div>
+    <div>
+      <div class="stairs" id="stairs"></div>
+      <div class="stairs-cap">SENTENCE → PARAGRAPH → ESSAY</div>
+    </div>
+  </div>
+</header>
+
+<nav><div class="nwrap">
+  <button class="nbtn on" data-go="home">🏠 Stage Map</button>
+  <button class="nbtn" data-go="s1">1 Build</button>
+  <button class="nbtn" data-go="s2">2 Fix</button>
+  <button class="nbtn" data-go="s3">3 Finish</button>
+  <button class="nbtn" data-go="s4">4 Transform</button>
+  <button class="nbtn" data-go="s5">5 Problem→Solution</button>
+  <button class="nbtn" data-go="s6">6 Paragraphs</button>
+  <button class="nbtn" data-go="s7">7 Essay Studio</button>
+  <button class="nbtn" data-go="prog">💾 Progress</button>
+</div></nav>
+
+<main>
+  <section class="view on" id="v-home">
+    <div class="card intro-card">
+      <div>
+        <h2 class="vt">Climb from sentences to a full essay</h2>
+        <p class="vsub" style="margin-bottom:0">You learned 6 sentence structures in the Vocabulary Builder. Now you will <b>use</b> them. Each stage is a little harder than the last. At the top, you write your own problem–solution essay.</p>
+        <p class="ar">في هذا التطبيق ستستخدم التراكيب الستة خطوة بخطوة: من ترتيب الكلمات، إلى كتابة جمل، ثم فقرات، ثم مقال كامل.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px"><button class="btn p" id="startBtn">▶ Start / Continue</button><button class="btn g" onclick="downloadPDF(this)">📄 Study Pack (PDF)</button></div>
+    </div>
+    <div class="map" id="map"></div>
+  </section>
+
+  <section class="view" id="v-s1"></section>
+  <section class="view" id="v-s2"></section>
+  <section class="view" id="v-s3"></section>
+  <section class="view" id="v-s4"></section>
+  <section class="view" id="v-s5"></section>
+  <section class="view" id="v-s6"></section>
+  <section class="view" id="v-s7"></section>
+
+  <section class="view" id="v-prog">
+    <h2 class="vt">My Progress</h2>
+    <p class="vsub">Save your work as a file and load it next time. Download a <b>PDF study pack</b> with the rules, your sentences, paragraphs, essays and the 32 key words, to study later.</p>
+    <div class="card">
+      <label for="sname"><b>Your full name (for the certificate):</b></label>
+      <input type="text" id="sname" placeholder="Write your name here" style="max-width:380px;margin-top:6px;display:block">
+      <div class="stat-grid">
+        <div class="stat"><div class="v" id="pPoints">0</div><div class="l">POINTS</div></div>
+        <div class="stat"><div class="v" id="pStages">0/7</div><div class="l">STAGES COMPLETE</div></div>
+        <div class="stat"><div class="v" id="pWords">0</div><div class="l">ESSAY WORDS</div></div>
+        <div class="stat"><div class="v" id="pStructs">0/6</div><div class="l">STRUCTURES IN ESSAY</div></div>
+      </div>
+      <div class="badges" id="badges"></div>
+      <div class="btnrow">
+        <button class="btn p" id="saveBtn">💾 Save Progress (JSON)</button>
+        <button class="btn s" id="loadBtn">📂 Load Progress</button>
+        <button class="btn" style="background:var(--sun);color:var(--navy)" onclick="downloadPDF(this)">📄 Download Study Pack (PDF)</button>
+        <input type="file" id="loadFile" accept=".json" style="display:none">
+      </div>
+    </div>
+    <div id="certArea"></div>
+  </section>
+</main>
+
+<button class="fab no-print" id="fab">📘 Structures</button>
+<aside class="drawer" id="drawer" aria-label="Sentence structure reference">
+  <button class="dclose" id="dclose" aria-label="Close">✕</button>
+  <h3>📘 The 6 Structures</h3>
+  <div id="refList"></div>
+</aside>
+
+<footer>Solution Sentence Studio · IELTS Academic Writing Task 2 · Problem–Solution<br><b>Designed by: Nazila Motahari</b></footer>
+<script>
+/* ============ HELPERS ============ */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const low=t=>String(t||"").toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g," ").trim();
+const words=t=>(String(t||"").trim().match(/[A-Za-z'’-]+/g)||[]).length;
+const sentences=t=>(String(t||"").replace(/\s+/g," ").trim().match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[]).map(s=>s.trim()).filter(Boolean);
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2200)}
+function confetti(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const c=["#C2185B","#2B4BB8","#F4B400","#1F8A63","#7B3FA8"];for(let i=0;i<70;i++){const d=document.createElement("div");d.className="confetti";d.style.left=Math.random()*100+"vw";d.style.background=c[i%c.length];const dur=2+Math.random()*2;d.style.transition=`transform ${dur}s linear,opacity ${dur}s`;document.body.appendChild(d);requestAnimationFrame(()=>{d.style.transform=`translateY(105vh) rotate(${400+Math.random()*600}deg)`;d.style.opacity="0"});setTimeout(()=>d.remove(),dur*1000+200)}}
+
+/* ============ STRUCTURES ============ */
+const ST={
+ modal:{name:"Modal verbs",pat:"should / must / could + base verb",ex:"Governments should invest in public transport.",msg:"Use should / must / could + base verb.",ar:"استخدم should / must / could + الفعل في صيغته الأساسية"},
+ solution:{name:"One solution is to…",pat:"One / Another solution is to + verb",ex:"One solution is to build more cycle lanes.",msg:"Use: One solution is to + verb.",ar:"استخدم: One solution is to + فعل"},
+ cond:{name:"First conditional",pat:"If + present simple, … will + verb",ex:"If fines increase, fewer drivers will speed.",msg:"Use: If + present simple, … will + verb.",ar:"استخدم: If + المضارع البسيط، ثم will + فعل"},
+ cause:{name:"Cause → effect",pat:"X leads to / results in / causes Y",ex:"Heavy traffic leads to air pollution.",msg:"Use: lead to / result in / cause.",ar:"استخدم: lead to / result in / cause"},
+ purpose:{name:"In order to…",pat:"In order to + verb, … should + verb",ex:"In order to reduce pollution, cities should plant trees.",msg:"Use: In order to + verb, then say who should do what.",ar:"استخدم: In order to + فعل، ثم من يجب أن يفعل ماذا"},
+ passive:{name:"Passive recommendation",pat:"… should be + past participle",ex:"Smoking should be banned in public places.",msg:"Use: should be + past participle (banned, built, given…).",ar:"استخدم: should be + التصريف الثالث للفعل"}
+};
+const SKEYS=["modal","solution","cond","cause","purpose","passive"];
+const TAGC={modal:"t-modal",solution:"t-solution",cond:"t-cond",cause:"t-cause",purpose:"t-purpose",passive:"t-passive"};
+
+const D={
+ modal:t=>/\b(should|must|could)\s+(?!be\b)(not\s+)?[a-z]+/.test(low(t)),
+ solution:t=>/\b(solution|way|step|measure|answer)\b[^.!?]*?\b(is|would be)\s+to\s+[a-z]+/.test(low(t)),
+ cond:t=>sentences(low(t)).some(s=>/\bif\b/.test(s)&&/\bwill\b/.test(s)),
+ cause:t=>{const s=low(t);if(/\b(lead|leads|led|leading)\s+to\b|\bresult(s|ed|ing)?\s+in\b|\bdue\s+to\b/.test(s))return true;
+  const re=/(\w+)?\s?\bcaus(e|es|ed|ing)\b(\s+of\b)?/g;let m;while((m=re.exec(s))){if(m[3])continue;if(m[1]&&/^(the|main|several|its|their|these|those|many|other|key|two|three|root|a|one|biggest|most)$/.test(m[1]))continue;return true}return false},
+ purpose:t=>/\bin\s+order\s+to\s+[a-z]+/.test(low(t)),
+ passive:t=>/\b(should|must|could|can|will|need to|needs to)\s+(not\s+)?be\s+(?!green\b|open\b|even\b|often\b|ten\b)[a-z]+(ed|en|wn|lt|ught|ld|de|ne|id|pt|ut|et|nt)\b/.test(low(t))
+};
+const SWL=new Set("this us focus discuss address pass access process cross express stress guess miss harass assess possess bless dress always less unless as his its yes perhaps".split(" "));
+const INGWL=new Set("bring sing ring string swing sting thing nothing everything something anything spring king".split(" "));
+const EDWL=new Set("need feed proceed succeed exceed speed seed bleed breed embed shed wed heed".split(" "));
+const PPBASE="ban|build|make|teach|give|encourage|reduce|improve|use|provide|introduce|increase|raise|create|offer|stop|limit|plant|charge|protect|educate|punish|sell|replace|support|fine|tax|remove";
+function errors(text){
+ const t=low(text),out=[];let m;
+ const add=(en,ar)=>{if(!out.some(o=>o.en===en))out.push({en,ar})};
+ if(/\b(should|must|could|can|will)\s+to\s+[a-z]+/.test(t))add("Don't use “to” after should / must / could / will. ✔ should build","لا تستخدم to بعد should / must / could / will");
+ const r1=/\b(should|must|could|can|will)\s+(not\s+)?([a-z]+ing)\b/g;while((m=r1.exec(t))){if(!INGWL.has(m[3])){add("After a modal or will, use the base verb, not -ing. ✔ should reduce","بعد الفعل الناقص أو will استخدم الفعل الأساسي بدون ing");break}}
+ const r2=/\b(should|must|could|can|will)\s+(not\s+)?([a-z]+s)\b/g;while((m=r2.exec(t))){if(!SWL.has(m[3])&&!/ss$/.test(m[3])){add("No -s after should / must / will. ✔ should build (not builds)","لا تضف s للفعل بعد should / must / will");break}}
+ const r3=/\b(should|must|could|can)\s+(not\s+)?([a-z]+ed)\b/g;while((m=r3.exec(t))){if(!EDWL.has(m[3])){add("Missing “be”? Passive = should be + past participle. ✔ should be banned","هل نسيت be؟ المبني للمجهول: should be + التصريف الثالث");break}}
+ if(new RegExp("\\b(should|must|could|can|will)\\s+(not\\s+)?be\\s+("+PPBASE+")\\b").test(t))add("Passive needs the past participle. ✔ should be banned / built / given","المبني للمجهول يحتاج التصريف الثالث: banned / built / given");
+ if(/\bif\s+[^,.!?]*\bwill\b[^,.!?]*,/.test(t))add("Don't use “will” in the if-part. ✔ If the city builds…, people will…","لا تستخدم will في جملة if");
+ if(/\b(leads?|led)\s+(?!to\b|by\b)[a-z]+/.test(t))add("Write “lead to”. ✔ leads to pollution","اكتب lead to مع حرف الجر to");
+ if(/\bresult(s|ed)?\s+(to|on|at)\b/.test(t)||/\b(can|could|will|may|might|would)\s+result\s+(?!in\b|from\b)[a-z]+/.test(t)||/\bresults\s+(?!in\b|from\b|of\b|show\w*|suggest\w*|are\b|were\b|indicate\w*|for\b|and\b)[a-z]+/.test(t))add("Write “result in”. ✔ results in obesity","اكتب result in مع حرف الجر in");
+ if((m=/\bin\s+order\s+to\s+([a-z]+ing)\b/.exec(t))&&!INGWL.has(m[1]))add("After “in order to”, use the base verb. ✔ in order to reduce","بعد in order to استخدم الفعل الأساسي");
+ if(/\bin\s+order\s+(?!to\b|for\b)[a-z]+/.test(t))add("Write “in order TO + verb”. ✔ in order to save","اكتب in order to + فعل");
+ if((m=/\b(solution|way)\s+is\s+to\s+([a-z]+ing)\b/.exec(t))&&!INGWL.has(m[2]))add("Use “is to + base verb”. ✔ One solution is to raise…","استخدم is to + الفعل الأساسي");
+ if(new RegExp("\\b(solution|way)\\s+is\\s+("+PPBASE+"|teach|build|make)\\b").test(t))add("Add “to”: One solution is TO + verb.","أضف to: One solution is to + فعل");
+ if(/\b(to to|in in)\b/.test(t))add("You repeated a word (to to / in in).","كررت كلمة مرتين");
+ return out;
+}
+function fbHTML(rows){return rows.map(r=>`<div class="row ${r.t}"><span class="ic">${r.t==="ok"?"✔":r.t==="bad"?"✘":"!"}</span><div>${r.en}${r.ar?`<span class="ar">${r.ar}</span>`:""}</div></div>`).join("")}
+function structOf(s){for(const k of ["passive","cond","purpose","solution","cause","modal"])if(D[k](s))return k;return null}
+function highlight(text){return sentences(text).map(s=>{const k=structOf(s);return k?`<span class="hl hl-${k}" title="${ST[k].name}">${esc(s)}</span>`:esc(s)}).join(" ")}
+const legendHTML=()=>`<div class="legend">${SKEYS.map(k=>`<span class="hl-${k}">${ST[k].name}</span>`).join("")}</div>`;
+
+/* ============ DATA ============ */
+const S1=[
+ ["modal","Governments should invest more money in public transport."],
+ ["modal","Young people must spend less time on their phones."],
+ ["solution","One solution is to build more cycle paths."],
+ ["solution","Another solution is to raise awareness in schools."],
+ ["cond","If the government lowers bus fares, more people will use buses."],
+ ["cond","If students sleep more, they will concentrate better."],
+ ["cause","Fast food leads to serious health problems."],
+ ["cause","A lack of exercise can result in obesity."],
+ ["purpose","In order to reduce pollution, cities should plant more trees."],
+ ["purpose","In order to tackle unemployment, colleges should offer work experience."],
+ ["passive","Plastic bags should be banned in supermarkets."],
+ ["passive","More affordable homes should be built for young families."]];
+const S2=[
+ ["modal","The government should builds more parks.","builds",["the government should build more parks"],"should + base verb (no -s)"],
+ ["modal","People must to recycle their plastic bottles.","must to",["people must recycle their plastic bottles"],"must + base verb (no “to”)"],
+ ["cond","If the city will build more bus lanes, traffic will decrease.","will build",["if the city builds more bus lanes traffic will decrease"],"If + present simple (no “will”)"],
+ ["cond","If schools teach cooking, students will eats healthier food.","will eats",["if schools teach cooking students will eat healthier food"],"will + base verb"],
+ ["solution","One solution is to raising awareness in schools.","to raising",["one solution is to raise awareness in schools"],"is to + base verb"],
+ ["solution","Another solution is ban plastic bags.","is ban",["another solution is to ban plastic bags"],"is TO + verb"],
+ ["cause","Heavy traffic leads air pollution.","leads air",["heavy traffic leads to air pollution"],"lead TO"],
+ ["cause","A lack of exercise results obesity.","results obesity",["a lack of exercise results in obesity"],"result IN"],
+ ["purpose","In order to reducing pollution, people should cycle.","to reducing",["in order to reduce pollution people should cycle"],"in order to + base verb"],
+ ["purpose","In order save money, families should cook at home.","order save",["in order to save money families should cook at home"],"in order TO + verb"],
+ ["passive","Smoking should banned in public places.","should banned",["smoking should be banned in public places"],"should BE + past participle"],
+ ["passive","More hospitals should be build in small towns.","be build",["more hospitals should be built in small towns"],"should be + past participle (build → built)"]];
+const S3=[
+ ["modal","To reduce traffic in big cities, the government should",3,"…improve bus services and build a metro."],
+ ["modal","To protect children's health, parents must",3,"…limit how much time children spend on screens."],
+ ["solution","One solution to the problem of plastic waste is to",3,"…charge customers for every plastic bag."],
+ ["solution","Another way to tackle youth unemployment is to",3,"…offer more internships to graduates."],
+ ["cond","If schools teach students about healthy food,",4,"…students will make better choices."],
+ ["cond","If the city builds more bus lanes,",4,"…journeys will become faster."],
+ ["cause","Eating too much fast food leads to",2,"…weight gain and heart disease."],
+ ["cause","A lack of sleep can result in",2,"…poor concentration in class."],
+ ["purpose","In order to protect the environment,",4,"…people should recycle more."],
+ ["purpose","In order to reduce stress among students,",4,"…colleges should offer free sports clubs."],
+ ["passive","Plastic straws should be",2,"…banned in all restaurants."],
+ ["passive","More cycle paths should be",2,"…built in the city centre."]];
+const S4=[
+ {k:"passive",i:"Rewrite in the passive.",ia:"أعد الكتابة بصيغة المبني للمجهول",src:"The government should ban junk food in schools.",kw:[["junk food"],["banned"],["school"]],m:"Junk food should be banned in schools."},
+ {k:"passive",i:"Rewrite in the passive.",ia:"أعد الكتابة بصيغة المبني للمجهول",src:"Cities must build more hospitals.",kw:[["hospital"],["built"]],m:"More hospitals must be built in cities."},
+ {k:"solution",i:"Rewrite with “One solution is to…”.",ia:"أعد الكتابة باستخدام One solution is to",src:"The government should improve public transport.",kw:[["improve"],["transport","bus","metro"]],m:"One solution is to improve public transport."},
+ {k:"solution",i:"Rewrite with “One solution is to…”.",ia:"أعد الكتابة باستخدام One solution is to",src:"Schools should teach students how to manage money.",kw:[["teach"],["money"]],m:"One solution is to teach students how to manage money."},
+ {k:"purpose",i:"Join the two sentences with “In order to…”.",ia:"اربط الجملتين باستخدام In order to",src:"We want to reduce plastic waste. Shops should charge for plastic bags.",kw:[["reduce"],["plastic"],["charge"]],m:"In order to reduce plastic waste, shops should charge for plastic bags.",modal:1},
+ {k:"purpose",i:"Join the two sentences with “In order to…”.",ia:"اربط الجملتين باستخدام In order to",src:"We want to prevent road accidents. Drivers must follow the speed limit.",kw:[["prevent","reduce","avoid"],["accident"],["speed limit"]],m:"In order to prevent road accidents, drivers must follow the speed limit.",modal:1},
+ {k:"cause",i:"Make ONE sentence with “lead to”.",ia:"اكتب جملة واحدة باستخدام lead to",src:"People eat too much sugar. Because of this, they become overweight.",kw:[["sugar"]],x:/\b(lead|leads|led)\s+to\b/,xm:"Use “lead to” in this one.",m:"Eating too much sugar leads to obesity."},
+ {k:"cause",i:"Make ONE sentence with “result in”.",ia:"اكتب جملة واحدة باستخدام result in",src:"Students spend too much time on screens. Because of this, they sleep badly.",kw:[["screen"]],x:/\bresult(s|ed)?\s+in\b/,xm:"Use “result in” in this one.",m:"Too much screen time results in poor sleep."},
+ {k:"cond",i:"Make a first conditional sentence.",ia:"اكتب جملة شرطية من النوع الأول",src:"Solution: the city builds more parks. → Result: people exercise more.",kw:[["park"],["exercise"]],m:"If the city builds more parks, people will exercise more."},
+ {k:"cond",i:"Make a first conditional sentence.",ia:"اكتب جملة شرطية من النوع الأول",src:"Solution: schools teach first aid. → Result: more lives are saved.",kw:[["first aid"],["save"]],m:"If schools teach first aid, more lives will be saved."}];
+
+const TOPICS={
+ traffic:{t:"Traffic congestion",ar:"الازدحام المروري",name:"traffic congestion",
+  f:{p:"Long journeys, stress and air pollution",c:"Too many private cars; poor public transport; people live far from work",s:"Better buses and metro; cycle lanes; higher parking fees; working from home",r:"Cleaner air; shorter journeys; less stress"},
+  w:["congestion","private cars","public transport","commute","cycle lanes","parking fees","emissions"],
+  ex:{cause:"Poor public transport leads to more people driving private cars.",modal:"The government should improve bus and metro services.",solution:"One solution is to build more cycle lanes in the city.",purpose:"In order to reduce congestion, cities should increase parking fees.",cond:"If companies allow working from home, there will be fewer cars on the roads.",passive:"More bus lanes should be built on busy roads."},
+  p6:{topic:"There are several reasons why traffic congestion is a serious problem in many cities.",example:"For example, in Abu Dhabi many families own three or four cars.",cons:"As a result, journeys take longer and the air becomes more polluted.",final:"This means that cities will be cleaner and people will feel less stressed."},
+  q:"In many cities around the world, traffic congestion is becoming a serious problem. What are the main causes of this problem, and what measures could be taken to solve it?"},
+ obesity:{t:"Obesity in young people",ar:"السمنة بين الشباب",name:"obesity among young people",
+  f:{p:"More teenagers are overweight; health problems such as diabetes",c:"Fast food; sugary drinks; too much screen time; lack of exercise",s:"Healthy school meals; more PE lessons; a tax on sugary drinks; awareness campaigns",r:"Healthier young people; lower health costs"},
+  w:["fast food","sugary drinks","physical activity","PE lessons","balanced diet","junk food"],
+  ex:{cause:"Eating too much fast food leads to weight gain.",modal:"Parents should limit their children's screen time.",solution:"One solution is to serve healthy meals in schools.",purpose:"In order to encourage exercise, schools should offer more PE lessons.",cond:"If sugary drinks become more expensive, young people will buy fewer of them.",passive:"Junk food adverts should be banned on children's TV channels."},
+  p6:{topic:"There are several reasons why obesity is becoming a serious problem among young people.",example:"For example, many teenagers drink two or three sugary drinks every day.",cons:"As a result, more young people suffer from health problems such as diabetes.",final:"This means that young people will be healthier and happier."},
+  q:"Obesity among children and teenagers is increasing in many countries. Why is this happening? What can be done to solve this problem?"},
+ plastic:{t:"Plastic waste",ar:"النفايات البلاستيكية",name:"plastic waste",
+  f:{p:"Rubbish on beaches and in the sea; harm to sea animals",c:"Single-use bags and bottles; little recycling; people drop litter",s:"Ban single-use plastic; recycling bins; charge for bags; reusable bottles",r:"Cleaner beaches; safer sea life"},
+  w:["single-use","recycle","reusable","landfill","marine life","litter"],
+  ex:{cause:"Single-use plastic results in huge amounts of litter on beaches.",modal:"Shoppers should bring reusable bags to the supermarket.",solution:"One solution is to put recycling bins on every street.",purpose:"In order to protect marine life, governments must ban plastic straws.",cond:"If shops charge for plastic bags, people will use fewer of them.",passive:"Single-use plastic bottles should be replaced with reusable ones."},
+  p6:{topic:"There are several reasons why plastic waste is a serious environmental problem.",example:"For example, millions of plastic bottles are used only once and then thrown away.",cons:"As a result, sea animals eat plastic and many of them die.",final:"This means that our beaches and seas will be cleaner and safer."},
+  q:"Plastic waste is causing serious damage to the environment, especially the oceans. What are the causes of this problem, and what solutions can you suggest?"},
+ jobs:{t:"Youth unemployment",ar:"بطالة الشباب",name:"youth unemployment",
+  f:{p:"Many graduates cannot find jobs; young people lose confidence",c:"Little work experience; skills don't match jobs; few new companies",s:"Internships; career advice; training courses; support for small businesses",r:"More young people in work; a stronger economy"},
+  w:["graduates","internship","work experience","skills","employers","career advice"],
+  ex:{cause:"A lack of work experience results in many graduates being rejected by employers.",modal:"Universities should give students better career advice.",solution:"One solution is to offer more internships to young graduates.",purpose:"In order to help young people find jobs, colleges should teach practical skills.",cond:"If the government supports small businesses, more jobs will be created.",passive:"Training courses should be provided free of charge for young job seekers."},
+  p6:{topic:"There are several reasons why youth unemployment is a serious problem today.",example:"For example, many employers want staff with at least two years of experience.",cons:"As a result, young people lose confidence and stay at home.",final:"This means that more young people will have jobs and the economy will grow."},
+  q:"In many countries, a large number of young people cannot find a job after they finish their studies. What are the causes of this problem, and how can it be solved?"}};
+const TK=Object.keys(TOPICS);
+const S5ORDER=["cause","modal","solution","purpose","cond","passive"];
+const S5TXT={cause:["Explain a cause and its effect","<code>cause</code> leads to / results in <code>effect</code>"],modal:["Say what someone should do","<code>Who</code> should / must / could <code>do what</code>"],solution:["Introduce a solution","One solution is to <code>verb…</code>"],purpose:["Give a purpose","In order to <code>verb…</code>, <code>who</code> should <code>verb…</code>"],cond:["Show the result of a solution","If <code>present simple</code>, … will <code>verb</code>"],passive:["Make a formal recommendation","<code>Something</code> should be <code>past participle</code>"]};
+
+const P6={
+ b1:[
+  {id:"topic",l:"Topic sentence",fr:"There are several reasons why <code>problem</code> is a serious problem.",chk:t=>/\b(problem|issue|challenge|reason|reasons|cause|crisis)\b/.test(low(t)),msg:["Say what the paragraph is about. Use problem / issue / reason.","اذكر موضوع الفقرة باستخدام problem أو reason"]},
+  {id:"cause",l:"Cause → effect",fr:"<code>cause</code> leads to / results in <code>effect</code>",k:"cause"},
+  {id:"example",l:"Example",fr:"For example, <code>a real example</code>.",chk:t=>/^(for example|for instance)\b/.test(low(t)),msg:["Start with “For example,” or “For instance,”.","ابدأ بـ For example"]},
+  {id:"cons",l:"Consequence",fr:"As a result, <code>what happens</code>.",chk:t=>/^(as a result|consequently|therefore|because of this)\b/.test(low(t)),msg:["Start with “As a result,” or “Consequently,”.","ابدأ بـ As a result"]}],
+ b2:[
+  {id:"solution",l:"Solution 1",fr:"One solution is to <code>verb…</code>",k:"solution"},
+  {id:"purpose",l:"Purpose",fr:"In order to <code>verb…</code>, <code>who</code> should <code>verb…</code>",k:"purpose"},
+  {id:"cond",l:"Result of the solution",fr:"If <code>…</code>, <code>…</code> will <code>verb</code>.",k:"cond"},
+  {id:"passive",l:"Solution 2 (formal)",fr:"In addition, <code>something</code> should be <code>past participle</code>.",k:"passive"},
+  {id:"final",l:"Closing sentence",fr:"This means that <code>good result</code>.",chk:t=>/^(this means|as a result|in this way|therefore|consequently)\b/.test(low(t)),msg:["Start with “This means that…” or “In this way,”.","ابدأ بـ This means that"]}]};
+
+const VOCAB=[["issue","issues?"],["challenge","challeng(e|es|ing)"],["crisis","cris(is|es)"],["widespread","widespread"],["serious","serious(ly)?"],["alarming","alarming(ly)?"],["harmful","harmful"],["cause","caus(e|es|ed|ing)"],["lead to","(lead|leads|led|leading) to"],["result in","result(s|ed|ing)? in"],["due to","due to"],["factor","factors?"],["lack of","lack of"],["solution","solutions?"],["solve","solv(e|es|ed|ing)"],["tackle","tackl(e|es|ed|ing)"],["address","address(es|ed|ing)?"],["reduce","reduc(e|es|ed|ing)"],["prevent","prevent(s|ed|ing)?"],["improve","improv(e|es|ed|ing)"],["raise awareness","rais(e|es|ed|ing) awareness"],["effect","effects?"],["impact","impacts?"],["consequence","consequences?"],["benefit","benefit(s|ed|ing)?"],["effective","effective(ly)?"],["government","governments?"],["individuals","individuals?"],["society","societ(y|ies)"],["authorities","authorit(y|ies)"],["ban","ban(s|ned|ning)?"],["encourage","encourag(e|es|ed|ing)"]];
+
+const STAGES=[
+ {n:1,id:"s1",t:"Build",ar:"ابنِ الجملة",d:"Put the words in the right order to make correct sentences.",lvl:"Sentence level",ph:"Sentences"},
+ {n:2,id:"s2",t:"Fix",ar:"صحّح الخطأ",d:"Each sentence has one grammar mistake. Find it and write the correct sentence.",lvl:"Sentence level",ph:"Sentences"},
+ {n:3,id:"s3",t:"Finish",ar:"أكمل الجملة",d:"Complete each sentence with your own idea.",lvl:"Sentence level",ph:"Sentences"},
+ {n:4,id:"s4",t:"Transform",ar:"حوّل الجملة",d:"Rewrite sentences using a different structure.",lvl:"Sentence level",ph:"Sentences"},
+ {n:5,id:"s5",t:"Problem → Solution",ar:"من المشكلة إلى الحل",d:"Choose a real problem and write six sentences about it — one for each structure.",lvl:"Idea level",ph:"Ideas"},
+ {n:6,id:"s6",t:"Paragraphs",ar:"الفقرات",d:"Turn your sentences into two body paragraphs: problem and causes, then solutions.",lvl:"Paragraph level",ph:"Paragraphs"},
+ {n:7,id:"s7",t:"Essay Studio",ar:"استوديو المقال",d:"Write your full problem–solution essay with live feedback.",lvl:"Essay level",ph:"Essay"}];
+const BADGES=[["🧱","Sentence Builder"],["🔍","Error Detective"],["✏️","Idea Finisher"],["🔄","Shape Shifter"],["💡","Solution Thinker"],["🏗️","Paragraph Architect"],["🏆","Essay Writer"]];
+
+/* ============ STATE ============ */
+const fresh=()=>({name:"",points:0,done:[0,0,0,0,0,0,0],
+ s1:{cur:0,ok:{},tries:{}},s2:{cur:0,ok:{},tries:{},ans:{}},s3:{cur:0,ok:{},tries:{},ans:{}},s4:{cur:0,ok:{},tries:{},ans:{}},
+ s5:{topic:"traffic",ans:{traffic:{},obesity:{},plastic:{},jobs:{}},ok:{traffic:{},obesity:{},plastic:{},jobs:{}}},
+ s6:{topic:"traffic",ans:{b1:{},b2:{}},ok:{b1:{},b2:{}}},
+ s7:{topic:"traffic",parts:["","","",""],submitted:false,words:0,structs:0}});
+let S=fresh();
+let view="home";
+
+function addPts(n){S.points+=n;hud()}
+function completeStage(i){
+ if(S.done[i])return;S.done[i]=1;addPts(50);confetti();
+ toast(`${BADGES[i][0]} Badge earned: ${BADGES[i][1]}! +50`);hud();renderMap();
+}
+function hud(){
+ $("hPoints").textContent=S.points;
+ const n=S.done.filter(Boolean).length;
+ $("hBadges").textContent=n;$("hStages").textContent=n;
+ const st=$("stairs");st.innerHTML="";
+ let next=S.done.findIndex(x=>!x);if(next<0)next=7;
+ for(let i=0;i<7;i++){const d=document.createElement("div");d.className="step"+(S.done[i]?" done":"")+(i===next?" here":"");d.style.height=(20+i*11)+"px";d.textContent=i+1;st.appendChild(d)}
+ const c=document.createElement("div");c.className="climber";
+ const pos=Math.min(next,6);c.style.left=(pos*34+15)+"px";c.style.bottom=(20+pos*11+2)+"px";c.textContent=next>=7?"🏆":"🧗";st.appendChild(c);
+ document.querySelectorAll(".nbtn").forEach(b=>{const k=b.dataset.go;const i=STAGES.findIndex(s=>s.id===k);if(i>=0)b.textContent=(S.done[i]?"✓ ":"")+STAGES[i].n+" "+STAGES[i].t});
+}
+
+/* ============ NAV ============ */
+function go(v){
+ view=v;document.querySelectorAll(".view").forEach(x=>x.classList.remove("on"));
+ $("v-"+v).classList.add("on");
+ document.querySelectorAll(".nbtn").forEach(b=>b.classList.toggle("on",b.dataset.go===v));
+ const r={home:renderMap,s1:renderS1,s2:renderS2,s3:renderS3,s4:renderS4,s5:renderS5,s6:renderS6,s7:renderS7,prog:renderProg}[v];r&&r();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".nbtn").forEach(b=>b.onclick=()=>go(b.dataset.go));
+$("startBtn").onclick=()=>{const i=S.done.findIndex(x=>!x);go(i<0?"prog":STAGES[i].id)};
+
+function renderMap(){
+ const m=$("map");m.innerHTML="";let lastPh="";
+ const next=S.done.findIndex(x=>!x);
+ STAGES.forEach((s,i)=>{
+  if(s.ph!==lastPh){lastPh=s.ph;const h=document.createElement("div");h.className="phase";h.textContent={Sentences:"Step 1 · Sentences",Ideas:"Step 2 · Ideas",Paragraphs:"Step 3 · Paragraphs",Essay:"Step 4 · Essay"}[s.ph];m.appendChild(h)}
+  const b=document.createElement("button");b.className="stage"+(S.done[i]?" done":"");
+  b.innerHTML=`<div class="num">${S.done[i]?"✓":s.n}</div><div><div class="lvl">${s.lvl}</div><h3>${s.t}<span class="ar">${s.ar}</span></h3><p>${s.d}</p></div><span class="status ${S.done[i]?"fin":i===next?"next":"todo"}">${S.done[i]?"Complete":i===next?"Next ▶":"Open"}</span>`;
+  b.onclick=()=>go(s.id);m.appendChild(b);
+ });
+}
+
+function stageHead(i,doneN,total,how,howAr){
+ const s=STAGES[i];
+ return `<div class="shead"><div><button class="back" onclick="go('home')">← Stage map</button>
+ <h2 class="vt" style="margin-top:10px">Stage ${s.n}: ${s.t} <span class="ar" style="font-size:1.1rem;color:var(--rasp)">${s.ar}</span></h2></div>
+ <div class="meter">${S.done[i]?"✅ Stage complete":"Progress"}: ${doneN}/${total}<div class="mbar"><div class="mfill" style="width:${Math.round(doneN/total*100)}%"></div></div></div></div>
+ <div class="howto">${how}<span class="ar">${howAr}</span></div>`;
+}
+function dotsHTML(n,st,total){let h='<div class="dots">';for(let k=0;k<total;k++)h+=`<button class="dot${st.ok[k]?" ok":""}${st.cur===k?" cur":""}" onclick="S.${n}.cur=${k};renderS${n.slice(1)}()" aria-label="Item ${k+1}">${k+1}</button>`;return h+"</div>"}
+function nextOpen(st,total){for(let k=1;k<=total;k++){const j=(st.cur+k)%total;if(!st.ok[j])return j}return st.cur}
+function navRow(n,st,total){const idx=st.cur;return `<div class="btnrow"><button class="btn g" ${idx===0?"disabled":""} onclick="S.${n}.cur--;renderS${n.slice(1)}()">← Previous</button><button class="btn g" ${idx===total-1?"disabled":""} onclick="S.${n}.cur++;renderS${n.slice(1)}()">Next →</button></div>`}
+function award(st,k){const first=!(st.tries[k]>0);addPts(first?10:5);st.ok[k]=1}
+
+/* ============ STAGE 1 BUILD ============ */
+let tileState=null;
+function renderS1(){
+ const st=S.s1,k=st.cur,[sk,sent]=S1[k],n=Object.keys(st.ok).length;
+ if(!tileState||tileState.k!==k){const toks=sent.split(" ");tileState={k,toks,order:shuffle(toks.map((_,i)=>i)),picked:[]};
+  if(tileState.order.every((v,i)=>v===i)&&toks.length>2)tileState.order.reverse()}
+ const ts=tileState;
+ $("v-s1").innerHTML=stageHead(0,n,S1.length,"Tap the words in the right order. Tap a word in the box to send it back.","اضغط على الكلمات بالترتيب الصحيح. اضغط على كلمة في المربع لإرجاعها.")+
+ dotsHTML("s1",st,S1.length)+
+ `<div class="card"><span class="tag ${TAGC[sk]}">${ST[sk].name}</span><div class="instr">Pattern: ${ST[sk].pat}</div>
+ <div class="answer-zone ${ts.picked.length?"":"empty"}" id="az">${ts.picked.map((ti,pi)=>`<button class="tile" onclick="unpick(${pi})">${esc(ts.toks[ti])}</button>`).join("")}</div>
+ <div class="tiles">${ts.order.map(ti=>`<button class="tile${ts.picked.includes(ti)?" used":""}" onclick="pick(${ti})">${esc(ts.toks[ti])}</button>`).join("")}</div>
+ <div class="btnrow"><button class="btn p" onclick="check1()" ${st.ok[k]?"disabled":""}>✔ Check</button><button class="btn g" onclick="tileState.picked=[];renderS1()">↺ Reset</button>
+ ${(st.tries[k]||0)>=2&&!st.ok[k]?`<button class="btn g" onclick="$('fb1').innerHTML=fbHTML([{t:'warn',en:'Answer: <b>'+esc(S1[${k}][1])+'</b> — now build it yourself.'}])">👁 Show answer</button>`:""}
+ ${st.ok[k]?`<button class="btn s" onclick="S.s1.cur=nextOpen(S.s1,${S1.length});renderS1()">Next sentence →</button>`:""}</div>
+ <div class="fb" id="fb1">${st.ok[k]?fbHTML([{t:"ok",en:"Correct! <b>"+esc(sent)+"</b>"}]):""}</div></div>`+navRow("s1",st,S1.length);
+}
+function pick(ti){if(S.s1.ok[S.s1.cur])return;tileState.picked.push(ti);renderS1()}
+function unpick(pi){if(S.s1.ok[S.s1.cur])return;tileState.picked.splice(pi,1);renderS1()}
+function check1(){
+ const st=S.s1,k=st.cur,ts=tileState;const built=ts.picked.map(i=>ts.toks[i]).join(" ");
+ if(ts.picked.length<ts.toks.length){$("fb1").innerHTML=fbHTML([{t:"warn",en:"Use all the words first.",ar:"استخدم كل الكلمات أولاً"}]);return}
+ if(built===S1[k][1]){award(st,k);renderS1();toast("✔ Correct!");if(Object.keys(st.ok).length===S1.length)completeStage(0)}
+ else{st.tries[k]=(st.tries[k]||0)+1;
+  let p=0;while(p<ts.picked.length&&ts.toks[ts.picked[p]]===S1[k][1].split(" ")[p])p++;
+  renderS1();$("fb1").innerHTML=fbHTML([{t:"bad",en:`Not yet. The first ${p} word${p===1?" is":"s are"} correct. Check the pattern: <b>${ST[S1[k][0]].pat}</b>`,ar:"ليس بعد. راجع ترتيب الكلمات والتركيب."}])}
+}
+
+/* ============ STAGE 2 FIX ============ */
+const n2=t=>low(t).replace(/[.,!?;:]/g,"").replace(/\s+/g," ").trim();
+function renderS2(){
+ const st=S.s2,k=st.cur,[sk,wrong,bad,acc,rule]=S2[k],n=Object.keys(st.ok).length,tr=st.tries[k]||0;
+ const shown=tr>=1?esc(wrong).replace(esc(bad),`<span class="wrong">${esc(bad)}</span>`):esc(wrong);
+ $("v-s2").innerHTML=stageHead(1,n,S2.length,"Each sentence has <b>one</b> mistake. Write the whole sentence correctly.","في كل جملة خطأ واحد. اكتب الجملة كاملة بشكل صحيح.")+dotsHTML("s2",st,S2.length)+
+ `<div class="card"><span class="tag ${TAGC[sk]}">${ST[sk].name}</span>
+ <div class="prompt-line">❌ ${shown}</div>
+ <label class="instr" for="in2">✍️ Write the correct sentence:</label>
+ <textarea id="in2" rows="2" ${st.ok[k]?"readonly":""} placeholder="Type the correct sentence here…">${esc(st.ans[k]||"")}</textarea>
+ <div class="btnrow"><button class="btn p" onclick="check2()" ${st.ok[k]?"disabled":""}>✔ Check</button>
+ ${tr>=2&&!st.ok[k]?`<button class="btn g" onclick="$('fb2').innerHTML+=fbHTML([{t:'warn',en:'Correct sentence: <b>${esc(acc[0]).replace(/'/g,"\\'")}</b> (rule: ${rule}) — now type it.'}])">👁 Show answer</button>`:""}
+ ${st.ok[k]?`<button class="btn s" onclick="S.s2.cur=nextOpen(S.s2,${S2.length});renderS2()">Next sentence →</button>`:""}</div>
+ <div class="fb" id="fb2">${st.ok[k]?fbHTML([{t:"ok",en:`Correct! Rule: <b>${rule}</b>`}]):""}</div></div>`+navRow("s2",st,S2.length);
+ const ta=$("in2");ta.oninput=()=>{st.ans[k]=ta.value};
+}
+function check2(){
+ const st=S.s2,k=st.cur,v=$("in2").value;st.ans[k]=v;const [sk,wrong,bad,acc,rule]=S2[k];
+ if(!v.trim())return;
+ if(acc.includes(n2(v))){award(st,k);renderS2();toast("✔ Well fixed!");if(Object.keys(st.ok).length===S2.length)completeStage(1);return}
+ st.tries[k]=(st.tries[k]||0)+1;
+ const rows=[];
+ if(n2(v)===n2(wrong))rows.push({t:"bad",en:"You haven't changed anything yet. Look at the underlined words.",ar:"لم تغيّر شيئاً بعد. انظر إلى الكلمات المسطّرة."});
+ else{const e=errors(v);e.forEach(x=>rows.push({t:"bad",en:x.en,ar:x.ar}));if(!e.length)rows.push({t:"bad",en:`Not quite. Keep the same words, and fix only the mistake. Rule: <b>${rule}</b>`,ar:"احتفظ بنفس الكلمات وصحّح الخطأ فقط"})}
+ renderS2();$("fb2").innerHTML=fbHTML(rows);
+}
+
+/* ============ STAGE 3 FINISH ============ */
+function check3Text(k,input){
+ const [sk,start,minw]=S3[k],full=start+" "+input.trim(),rows=[];
+ if(words(input)<minw)rows.push({t:"bad",en:`Write at least ${minw} more words.`,ar:`اكتب ${minw} كلمات على الأقل`});
+ errors(full).forEach(x=>rows.push({t:"bad",en:x.en,ar:x.ar}));
+ if(sk==="cond"&&!/\bwill\s+(not\s+)?[a-z]+/.test(low(input)))rows.push({t:"bad",en:"Show the result with <b>will + verb</b>. ✔ …students will make better choices.",ar:"أظهر النتيجة باستخدام will + فعل"});
+ if(sk==="purpose"&&!/\b(should|must|could|can|need to|needs to|have to|has to|will)\b/.test(low(input)))rows.push({t:"bad",en:"Now say WHO should do WHAT. ✔ …, people should recycle more.",ar:"قل من يجب أن يفعل ماذا: people should…"});
+ if(sk==="passive"&&!D.passive(full))rows.push({t:"bad",en:"After “should be”, use a past participle: banned, built, reduced, given…",ar:"بعد should be استخدم التصريف الثالث"});
+ if(!D[sk](full))rows.push({t:"bad",en:ST[sk].msg,ar:ST[sk].ar});
+ if(!rows.length&&!/[.!?]$/.test(input.trim()))rows.push({t:"warn",en:"Good! Remember to finish with a full stop ( . )",ar:"لا تنسَ النقطة في نهاية الجملة"});
+ return rows;
+}
+function renderS3(){
+ const st=S.s3,k=st.cur,[sk,start,minw,model]=S3[k],n=Object.keys(st.ok).length,tr=st.tries[k]||0;
+ $("v-s3").innerHTML=stageHead(2,n,S3.length,"Finish the sentence with <b>your own idea</b>. The app checks your grammar, not your idea — any sensible idea is fine.","أكمل الجملة بفكرتك الخاصة. التطبيق يتحقق من القواعد وليس من الفكرة.")+dotsHTML("s3",st,S3.length)+
+ `<div class="card"><span class="tag ${TAGC[sk]}">${ST[sk].name}</span><div class="instr">Pattern: ${ST[sk].pat}</div>
+ <div class="starter-wrap"><div class="starter">${esc(start)} …</div>
+ <textarea id="in3" rows="2" ${st.ok[k]?"readonly":""} placeholder="Finish the sentence…">${esc(st.ans[k]||"")}</textarea></div>
+ <div class="btnrow"><button class="btn p" onclick="check3()" ${st.ok[k]?"disabled":""}>✔ Check</button>
+ ${tr>=2&&!st.ok[k]?`<button class="btn g" onclick="$('fb3').innerHTML+=fbHTML([{t:'warn',en:'One possible ending: <b>${esc(model).replace(/'/g,"\\'")}</b> — try your own idea in the same way.'}])">💡 See an example</button>`:""}
+ ${st.ok[k]?`<button class="btn s" onclick="S.s3.cur=nextOpen(S.s3,${S3.length});renderS3()">Next sentence →</button>`:""}</div>
+ <div class="fb" id="fb3">${st.ok[k]?fbHTML([{t:"ok",en:"Great sentence: <b>"+esc(start+" "+(st.ans[k]||"").trim())+"</b>"}]):""}</div></div>`+navRow("s3",st,S3.length);
+ const ta=$("in3");ta.oninput=()=>{st.ans[k]=ta.value};
+}
+function check3(){
+ const st=S.s3,k=st.cur,v=$("in3").value;st.ans[k]=v;if(!v.trim())return;
+ const rows=check3Text(k,v);
+ if(!rows.some(r=>r.t==="bad")){award(st,k);renderS3();if(rows.length)$("fb3").innerHTML+=fbHTML(rows);toast("✔ Nice idea!");if(Object.keys(st.ok).length===S3.length)completeStage(2)}
+ else{st.tries[k]=(st.tries[k]||0)+1;renderS3();$("fb3").innerHTML=fbHTML(rows)}
+}
+
+/* ============ STAGE 4 TRANSFORM ============ */
+function renderS4(){
+ const st=S.s4,k=st.cur,it=S4[k],n=Object.keys(st.ok).length,tr=st.tries[k]||0;
+ $("v-s4").innerHTML=stageHead(3,n,S4.length,"Say the same idea in a different way. Using different structures shows the examiner your <b>grammar range</b>.","عبّر عن نفس الفكرة بطريقة مختلفة. هذا يُظهر للمصحح تنوّع القواعد لديك.")+dotsHTML("s4",st,S4.length)+
+ `<div class="card"><span class="tag ${TAGC[it.k]}">${ST[it.k].name}</span>
+ <div class="instr">${it.i} <span class="ar" style="font-weight:600">${it.ia}</span></div>
+ <div class="prompt-line">${esc(it.src)}</div>
+ <textarea id="in4" rows="2" ${st.ok[k]?"readonly":""} placeholder="Write your new sentence…">${esc(st.ans[k]||"")}</textarea>
+ <div class="btnrow"><button class="btn p" onclick="check4()" ${st.ok[k]?"disabled":""}>✔ Check</button>
+ ${tr>=2&&!st.ok[k]?`<button class="btn g" onclick="$('fb4').innerHTML+=fbHTML([{t:'warn',en:'Model answer: <b>${esc(it.m).replace(/'/g,"\\'")}</b>'}])">💡 See a model</button>`:""}
+ ${st.ok[k]?`<button class="btn s" onclick="S.s4.cur=nextOpen(S.s4,${S4.length});renderS4()">Next sentence →</button>`:""}</div>
+ <div class="fb" id="fb4">${st.ok[k]?fbHTML([{t:"ok",en:"Well done!"}]):""}</div>
+ ${st.ok[k]?`<div class="model"><b>Model answer:</b> ${esc(it.m)}</div>`:""}</div>`+navRow("s4",st,S4.length);
+ const ta=$("in4");ta.oninput=()=>{st.ans[k]=ta.value};
+}
+function check4(){
+ const st=S.s4,k=st.cur,it=S4[k],v=$("in4").value;st.ans[k]=v;if(!v.trim())return;
+ const t=low(v),rows=[];
+ if(words(v)<4)rows.push({t:"bad",en:"Write a full sentence.",ar:"اكتب جملة كاملة"});
+ errors(v).forEach(x=>rows.push({t:"bad",en:x.en,ar:x.ar}));
+ if(!D[it.k](v))rows.push({t:"bad",en:ST[it.k].msg,ar:ST[it.k].ar});
+ if(it.x&&!it.x.test(t))rows.push({t:"bad",en:it.xm,ar:""});
+ if(it.modal&&!/\b(should|must|could|can|need to|needs to|have to|has to)\b/.test(t))rows.push({t:"bad",en:"Keep the second part: … should / must + verb.",ar:"احتفظ بالجزء الثاني: should / must + فعل"});
+ const miss=it.kw.filter(g=>!g.some(w=>t.includes(w)));
+ if(miss.length)rows.push({t:"bad",en:"Keep the same meaning. Missing idea: <b>"+miss.map(g=>g[0]).join(", ")+"</b>",ar:"حافظ على نفس المعنى"});
+ if(it.k==="cond"&&sentences(v).length>1)rows.push({t:"bad",en:"Make ONE sentence: If …, … will …",ar:"اكتب جملة واحدة فقط"});
+ if(!rows.length){award(st,k);renderS4();toast("✔ Transformed!");if(Object.keys(st.ok).length===S4.length)completeStage(3)}
+ else{st.tries[k]=(st.tries[k]||0)+1;renderS4();$("fb4").innerHTML=fbHTML(rows)}
+}
+
+/* ============ STAGE 5 PROBLEM → SOLUTION ============ */
+function slotCheck(k,v){
+ const rows=[];
+ if(words(v)<6)rows.push({t:"bad",en:"Write a longer sentence (at least 6 words).",ar:"اكتب جملة أطول (6 كلمات على الأقل)"});
+ errors(v).forEach(x=>rows.push({t:"bad",en:x.en,ar:x.ar}));
+ if(k&&!D[k](v))rows.push({t:"bad",en:ST[k].msg,ar:ST[k].ar});
+ if(k==="purpose"&&!/\b(should|must|could|can|need to|needs to|have to|has to)\b/.test(low(v)))rows.push({t:"bad",en:"Add who should do what: …, schools should…",ar:"أضف من يجب أن يفعل ماذا"});
+ if(!rows.length&&!/[.!?]$/.test(v.trim()))rows.push({t:"warn",en:"End with a full stop ( . )",ar:"أنهِ الجملة بنقطة"});
+ return rows;
+}
+function renderS5(){
+ const st=S.s5,tk=st.topic,T=TOPICS[tk],ans=st.ans[tk],ok=st.ok[tk];
+ const best=Math.max(...TK.map(x=>Object.keys(st.ok[x]).length));
+ $("v-s5").innerHTML=stageHead(4,best,6,"Choose ONE problem. Use the ideas box to write <b>six sentences</b> — one with each structure. Finish all six for one topic to complete the stage.","اختر مشكلة واحدة واكتب ست جمل عنها، جملة لكل تركيب.")+
+ `<div class="ttabs">${TK.map(x=>`<button class="ttab${x===tk?" on":""}${Object.keys(st.ok[x]).length===6?" ok":""}" onclick="S.s5.topic='${x}';renderS5()">${TOPICS[x].t} <span class="ar" style="font-weight:500">${TOPICS[x].ar}</span></button>`).join("")}</div>
+ <div class="card"><h3 style="color:var(--navy);margin-bottom:10px">💭 Ideas: ${T.t}</h3>
+ <div class="factbox"><div class="fact p"><h4>⚠️ Problem</h4>${T.f.p}</div><div class="fact c"><h4>🔗 Causes</h4>${T.f.c}</div><div class="fact s"><h4>✅ Solutions</h4>${T.f.s}</div><div class="fact r"><h4>📊 Results</h4>${T.f.r}</div></div>
+ <div class="frame"><b>Useful words:</b></div><div class="wordhelp">${T.w.map(w=>`<span class="wh">${w}</span>`).join("")}</div></div>
+ ${S5ORDER.map((k,i)=>`<div class="slot${ok[k]?" pass":""}"><div class="sl-h"><span class="sl-t">${i+1}. ${S5TXT[k][0]}</span><span class="tag ${TAGC[k]}" style="margin:0">${ST[k].name}</span></div>
+ <div class="frame">Frame: ${S5TXT[k][1]}</div>
+ <textarea rows="2" id="s5_${k}" placeholder="Write your sentence…">${esc(ans[k]||"")}</textarea>
+ <div class="btnrow" style="margin-top:8px"><button class="mini" onclick="check5('${k}')">✔ Check</button><button class="mini" onclick="this.parentNode.nextElementSibling.nextElementSibling.style.display='block'">💡 Example</button></div>
+ <div class="fb" id="fb5_${k}">${ok[k]?fbHTML([{t:"ok",en:"Correct structure — well done!"}]):""}</div>
+ <div class="model" style="display:none"><b>Example:</b> ${esc(T.ex[k])} <br><small>Write your own idea — don't copy!</small></div></div>`).join("")}
+ ${Object.keys(ok).length===6?`<div class="card"><h3 style="color:var(--navy);margin-bottom:8px">🎨 Your six sentences</h3><div class="assembled">${S5ORDER.map(k=>highlight(ans[k])).join(" ")}</div>${legendHTML()}<div class="btnrow"><button class="btn s" onclick="setTopic6('${tk}');go('s6')">Next: build paragraphs →</button></div></div>`:""}`;
+ S5ORDER.forEach(k=>{const ta=$("s5_"+k);ta.oninput=()=>{ans[k]=ta.value;if(ok[k]){delete ok[k];ta.closest(".slot").classList.remove("pass");$("fb5_"+k).innerHTML=""}}});
+}
+function check5(k){
+ const st=S.s5,tk=st.topic,v=$("s5_"+k).value;st.ans[tk][k]=v;if(!v.trim())return;
+ const rows=slotCheck(k,v);
+ if(!rows.some(r=>r.t==="bad")){const was=st.ok[tk][k];st.ok[tk][k]=1;if(!was)addPts(10);
+  if(Object.keys(st.ok[tk]).length===6){renderS5();completeStage(4);return}
+  $("fb5_"+k).innerHTML=fbHTML([{t:"ok",en:"Correct structure — well done!"},...rows]);$("s5_"+k).closest(".slot").classList.add("pass")}
+ else $("fb5_"+k).innerHTML=fbHTML(rows);
+}
+
+/* ============ STAGE 6 PARAGRAPHS ============ */
+function p6Check(sl,v){
+ if(sl.k)return slotCheck(sl.k,v);
+ const rows=[];if(words(v)<6)rows.push({t:"bad",en:"Write a longer sentence (at least 6 words).",ar:"اكتب جملة أطول"});
+ errors(v).forEach(x=>rows.push({t:"bad",en:x.en,ar:x.ar}));
+ if(!sl.chk(v.trim()))rows.push({t:"bad",en:sl.msg[0],ar:sl.msg[1]});
+ if(!rows.length&&!/[.!?]$/.test(v.trim()))rows.push({t:"warn",en:"End with a full stop ( . )",ar:"أنهِ الجملة بنقطة"});
+ return rows;
+}
+function p6Example(tk,id){const T=TOPICS[tk];return T.p6[id]||(id==="passive"?"In addition, "+T.ex.passive.charAt(0).toLowerCase()+T.ex.passive.slice(1):T.ex[id])}
+function renderS6(){
+ const st=S.s6,tk=st.topic,T=TOPICS[tk];
+ const total=P6.b1.length+P6.b2.length,n=Object.keys(st.ok.b1).length+Object.keys(st.ok.b2).length;
+ const block=(bk,title,sub)=>`<div class="card"><h3 style="color:var(--navy)">${title}</h3><p class="frame" style="margin-bottom:12px">${sub}</p>
+ ${P6[bk].map((sl,i)=>`<div class="slot${st.ok[bk][sl.id]?" pass":""}"><div class="sl-h"><span class="sl-t">${i+1}. ${sl.l}</span>${sl.k?`<span class="tag ${TAGC[sl.k]}" style="margin:0">${ST[sl.k].name}</span>`:`<span class="tag t-free" style="margin:0">Linking sentence</span>`}</div>
+ <div class="frame">Frame: ${sl.fr}</div><textarea rows="2" id="p6_${bk}_${sl.id}" placeholder="Write your sentence…">${esc(st.ans[bk][sl.id]||"")}</textarea>
+ <div class="btnrow" style="margin-top:8px"><button class="mini" onclick="check6('${bk}','${sl.id}')">✔ Check</button><button class="mini" onclick="this.parentNode.nextElementSibling.nextElementSibling.style.display='block'">💡 Example</button></div>
+ <div class="fb" id="fb6_${bk}_${sl.id}">${st.ok[bk][sl.id]?fbHTML([{t:"ok",en:"Good sentence!"}]):""}</div>
+ <div class="model" style="display:none"><b>Example:</b> ${esc(p6Example(tk,sl.id))}</div></div>`).join("")}
+ <div class="frame" style="margin-top:6px"><b>Preview:</b></div><div class="assembled">${highlight(P6[bk].map(sl=>(st.ans[bk][sl.id]||"").trim()).filter(Boolean).join(" "))||'<span style="color:var(--muted)">Your paragraph will appear here.</span>'}</div>${legendHTML()}</div>`;
+ const has5=S5ORDER.some(k=>(S.s5.ans[tk][k]||"").trim());
+ $("v-s6").innerHTML=stageHead(5,n,total,"A paragraph is a team of sentences. Body paragraph 1 explains the <b>problem and its causes</b>. Body paragraph 2 gives <b>solutions and results</b>. Linking words (For example, As a result, This means that) join the sentences together.","الفقرة مجموعة جمل مترابطة. الفقرة الأولى: المشكلة وأسبابها. الفقرة الثانية: الحلول ونتائجها.")+
+ `<div class="ttabs">${TK.map(x=>`<button class="ttab${x===tk?" on":""}" onclick="switch6('${x}')">${TOPICS[x].t}</button>`).join("")}</div>
+ ${has5?`<div class="card" style="padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span>📥 You wrote sentences about <b>${T.t}</b> in Stage 5. Use them here?</span><button class="btn s" onclick="import6()">Import my Stage 5 sentences</button></div>`:""}`+
+ block("b1","🔴 Body paragraph 1 — The problem and its causes","Explain why the problem happens and what it causes.")+
+ block("b2","🟢 Body paragraph 2 — Solutions","Give solutions, explain their purpose, and show the results.")+
+ (n===total?`<div class="btnrow"><button class="btn s" onclick="setTopic7('${tk}');go('s7')">Next: write the full essay →</button></div>`:"");
+ ["b1","b2"].forEach(bk=>P6[bk].forEach(sl=>{const ta=$(`p6_${bk}_${sl.id}`);ta.oninput=()=>{st.ans[bk][sl.id]=ta.value;if(st.ok[bk][sl.id]){delete st.ok[bk][sl.id];ta.closest(".slot").classList.remove("pass");$(`fb6_${bk}_${sl.id}`).innerHTML=""}}}));
+}
+/* each topic keeps its own paragraphs — switching never deletes work */
+function setTopic6(x){const st=S.s6;if(x===st.topic)return;st.store=st.store||{};st.store[st.topic]={ans:st.ans,ok:st.ok};const n=st.store[x]||{ans:{b1:{},b2:{}},ok:{b1:{},b2:{}}};st.topic=x;st.ans=n.ans;st.ok=n.ok}
+function switch6(x){setTopic6(x);renderS6()}
+function s6For(tk){const st=S.s6;if(tk===st.topic)return {ans:st.ans,ok:st.ok};return (st.store&&st.store[tk])||{ans:{b1:{},b2:{}},ok:{b1:{},b2:{}}}}
+function import6(){const a=S.s5.ans[S.s6.topic],st=S.s6;
+ const map=[["b1","cause","cause"],["b2","solution","solution"],["b2","purpose","purpose"],["b2","cond","cond"],["b2","passive","passive"]];let c=0;
+ map.forEach(([b,id,k])=>{if(a[k]&&a[k].trim()&&!(st.ans[b][id]||"").trim()){let v=a[k].trim();if(id==="passive"&&!/^in addition/i.test(v))v="In addition, "+v.charAt(0).toLowerCase()+v.slice(1);st.ans[b][id]=v;c++}});
+ renderS6();toast(c?`📥 ${c} sentence${c>1?"s":""} imported — now check them`:"Nothing new to import");}
+function check6(bk,id){
+ const st=S.s6,sl=P6[bk].find(s=>s.id===id),v=$(`p6_${bk}_${id}`).value;st.ans[bk][id]=v;if(!v.trim())return;
+ const rows=p6Check(sl,v);
+ if(!rows.some(r=>r.t==="bad")){const was=st.ok[bk][id];st.ok[bk][id]=1;if(!was)addPts(10);
+  const n=Object.keys(st.ok.b1).length+Object.keys(st.ok.b2).length;renderS6();
+  $(`fb6_${bk}_${id}`).innerHTML=fbHTML([{t:"ok",en:"Good sentence!"},...rows]);
+  if(n===P6.b1.length+P6.b2.length)completeStage(5)}
+ else $(`fb6_${bk}_${id}`).innerHTML=fbHTML(rows);
+}
+
+/* ============ STAGE 7 ESSAY STUDIO ============ */
+const PARTS=[["Introduction","مقدمة",40,"Paraphrase the question and say what the essay will do."],["Body paragraph 1 — Causes","الأسباب",80,"Explain the main causes and their effects. Give an example."],["Body paragraph 2 — Solutions","الحلول",80,"Give two or three solutions and show their results."],["Conclusion","خاتمة",40,"Summarise the causes and the best solution."]];
+/* Hints only — no ready-made sentences. Each move = what to do + opening words + a tip */
+const PARA={traffic:["heavy traffic","busy roads","traffic jams"],obesity:["being overweight","unhealthy weight","weight problems"],plastic:["plastic pollution","plastic rubbish","single-use plastic"],jobs:["young people without work","graduate unemployment","the lack of jobs for young people"]};
+const HINTS={
+ 0:{title:"How to write your introduction (3 sentences)",ar:"كيف تكتب المقدمة: ثلاث جمل",moves:[
+  ["Background","Paraphrase the question — say the same idea in YOUR words. Don't copy it.","Nowadays, … / In recent years, … / These days, …","اكتب فكرة السؤال بكلماتك أنت، ولا تنسخه"],
+  ["Why it matters","Say why this problem is serious or who it affects.","This is a serious issue because … / This affects …","اشرح لماذا المشكلة خطيرة أو على من تؤثر"],
+  ["Outline","Tell the reader what your essay will do: causes AND solutions.","This essay will … / In this essay, I will …","أخبر القارئ أن مقالك سيناقش الأسباب والحلول"]],
+  tip:"Words you can use instead of the words in the question:"},
+ 3:{title:"How to write your conclusion (3 sentences)",ar:"كيف تكتب الخاتمة: ثلاث جمل",moves:[
+  ["Sum up the causes","Repeat your main causes from Body paragraph 1 in different words. No new ideas!","In conclusion, … / To sum up, …","أعد ذكر الأسباب الرئيسية بكلمات مختلفة، بدون أفكار جديدة"],
+  ["Sum up the solutions","Remind the reader of your solutions from Body paragraph 2. Try a structure: should / must.","However, … / Governments and individuals …","ذكّر القارئ بالحلول، واستخدم should أو must"],
+  ["Final thought","Give your opinion on the best solution, or a prediction. Try: If …, … will …","In my opinion, … / If …, …","اختم برأيك في أفضل حل أو بتوقع للمستقبل"]],
+  tip:"Don't repeat the same words as your introduction. Try:"}};
+function hintHTML(i,tk){const H=HINTS[i];return `<div class="model hintbox" style="display:none;border-left-color:var(--rasp);background:#FFF7FA"><b style="color:var(--rasp)">${H.title}</b> <span class="ar" style="font-size:.88rem;color:var(--muted)">${H.ar}</span>
+ <ol style="margin:8px 0 6px 20px">${H.moves.map(m=>`<li style="margin-bottom:8px"><b>${m[0]}:</b> ${m[1]}<br><span style="font-size:.88rem">Start with: <i style="color:var(--navy)">${m[2]}</i></span><span class="ar" style="display:block;font-size:.85rem;color:var(--muted)">${m[3]}</span></li>`).join("")}</ol>
+ <div style="font-size:.88rem"><b>${H.tip}</b> ${PARA[tk].map(w=>`<span class="wh">${w}</span>`).join(" ")}</div></div>`}
+function essayText(){return S.s7.parts.map(p=>p.trim()).filter(Boolean).join("\n\n")}
+function renderS7(){
+ const st=S.s7,tk=st.topic,T=TOPICS[tk];
+ const s6a=s6For(tk).ans;
+ $("v-s7").innerHTML=stageHead(6,st.submitted?1:0,1,"Write your full essay (at least <b>250 words</b>). The panel on the right checks your word count, structures, vocabulary and common mistakes as you type.","اكتب مقالك الكامل (250 كلمة على الأقل). اللوحة الجانبية تتحقق من عدد الكلمات والتراكيب والمفردات.")+
+ `<div class="ttabs">${TK.map(x=>`<button class="ttab${x===tk?" on":""}" onclick="switch7('${x}')">${TOPICS[x].t}</button>`).join("")}</div>
+ <div class="essayq"><small>Writing Task 2 · You should spend about 40 minutes on this task</small>${T.q}<br><small style="margin-top:6px">Write at least 250 words.</small></div>
+ <div class="studio"><div>
+ ${PARTS.map((p,i)=>`<div class="card essay-part"><div class="part-h"><h4>${p[0]} <span class="ar" style="font-weight:500;color:var(--rasp)">${p[1]}</span></h4><span class="wc" id="wc${i}">0 words</span></div>
+ <p class="frame">${p[3]} (about ${p[2]}+ words)</p>
+ <textarea id="es${i}" rows="${i===1||i===2?7:4}" placeholder="Write here…" ${st.submitted?"readonly":""}>${esc(st.parts[i])}</textarea>
+ <div class="btnrow" style="margin-top:8px">${i===0||i===3?`<button class="mini" onclick="const d=this.parentNode.parentNode.querySelector('.hintbox');d.style.display=d.style.display==='block'?'none':'block'">💡 Hints for the ${i===0?"introduction":"conclusion"}</button>`:""}
+ ${(i===1||i===2)&&Object.values(s6a[i===1?"b1":"b2"]).some(v=>v&&v.trim())?`<button class="mini" onclick="ins7(${i})">📥 Insert my Stage 6 paragraph</button>`:""}
+ ${i===1||i===2?`<button class="mini" onclick="const d=this.parentNode.nextElementSibling.nextElementSibling;d.style.display=d.style.display==='grid'?'none':'grid'">💭 Ideas</button>`:""}</div>
+ <div class="fb" id="cf${i}"></div>
+ ${i===0||i===3?hintHTML(i,tk):""}
+ ${i===1?`<div class="ideas" style="display:none"><div><h5>Causes</h5><ul>${T.f.c.split("; ").map(x=>`<li>${x}</li>`).join("")}</ul></div><div><h5>Effects</h5><ul>${T.f.p.split("; ").map(x=>`<li>${x}</li>`).join("")}</ul></div></div>`:""}
+ ${i===2?`<div class="ideas" style="display:none"><div><h5>Solutions</h5><ul>${T.f.s.split("; ").map(x=>`<li>${x}</li>`).join("")}</ul></div><div><h5>Results</h5><ul>${T.f.r.split("; ").map(x=>`<li>${x}</li>`).join("")}</ul></div></div>`:""}
+ </div>`).join("")}
+ <div class="btnrow no-print" id="submitRow"></div>
+ <div id="essayOut"></div>
+ </div>
+ <aside class="panel-side"><div class="card chk" id="chk"></div></aside></div>`;
+ PARTS.forEach((_,i)=>{const ta=$("es"+i);ta.oninput=()=>{st.parts[i]=ta.value;live7()}});
+ live7();if(st.submitted)showEssay();
+}
+/* each topic keeps its own essay draft — switching never deletes work */
+function setTopic7(x){const st=S.s7;if(x===st.topic)return;st.store=st.store||{};st.store[st.topic]={parts:st.parts,submitted:st.submitted};const n=st.store[x]||{parts:["","","",""],submitted:false};st.topic=x;st.parts=n.parts;st.submitted=n.submitted}
+function switch7(x){setTopic7(x);renderS7()}
+function s7For(tk){const st=S.s7;if(tk===st.topic)return {parts:st.parts,submitted:st.submitted};return (st.store&&st.store[tk])||{parts:["","","",""],submitted:false}}
+function askInline(i,msg,yes){const el=$("cf"+i);el.innerHTML=`<div class="row warn"><span class="ic">!</span><div>${msg}<div class="btnrow" style="margin-top:6px"><button class="mini" id="cfy${i}">Yes, replace it</button><button class="mini" id="cfn${i}">Cancel</button></div></div></div>`;$("cfy"+i).onclick=()=>{el.innerHTML="";yes()};$("cfn"+i).onclick=()=>{el.innerHTML=""}}
+function ins7(i){
+ const st=S.s7,T=TOPICS[st.topic];let add="";
+ {const bk=i===1?"b1":"b2",a=s6For(st.topic).ans;add=P6[bk].map(sl=>(a[bk][sl.id]||"").trim()).filter(Boolean).join(" ")}
+ const doIt=()=>{st.parts[i]=add;$("es"+i).value=add;live7()};
+ if(st.submitted){toast("Click ✏️ Keep editing first");return}
+ if(st.parts[i].trim()&&st.parts[i].trim()!==add.trim())askInline(i,"This box already has text. Replace it with the frame?<span class=\"ar\">هل تريد استبدال النص المكتوب؟</span>",doIt);else doIt();
+}
+function live7(){
+ const st=S.s7,txt=essayText(),wc=words(txt);
+ PARTS.forEach((p,i)=>{const w=words(st.parts[i]);const el=$("wc"+i);if(el){el.textContent=w+" words";el.style.color=w>=p[2]?"var(--ok)":"var(--muted)"}});
+ const cnt={};SKEYS.forEach(k=>cnt[k]=sentences(txt).filter(s=>D[k](s)).length);
+ const used=SKEYS.filter(k=>cnt[k]>0).length;
+ const voc=VOCAB.filter(([w,r])=>new RegExp("\\b"+r+"\\b","i").test(txt)).map(v=>v[0]);
+ const errs=[];sentences(txt).forEach(s=>errors(s).forEach(e=>{const f=errs.find(x=>x.e.en===e.en);f?f.n++:errs.push({s,e,n:1})}));
+ const dots=/…|\.\.\./.test(txt);
+ const pc=PARTS.map((p,i)=>words(st.parts[i])>=p[2]);
+ $("chk").innerHTML=`<h4>📏 Word count</h4><div class="wcbig">${wc} <small>/ 250</small></div><div class="mbar"><div class="mfill" style="width:${Math.min(100,wc/250*100)}%;${wc>=250?"background:var(--ok)":""}"></div></div>
+ <h4>🧱 Structures used (${used}/6)</h4><div class="schips">${SKEYS.map(k=>`<div class="schip k-${k}${cnt[k]?" on":""}"><span>${ST[k].name}</span><span>${cnt[k]?"✓ "+cnt[k]:"—"}</span></div>`).join("")}</div>
+ <h4>📚 Topic vocabulary (${voc.length})</h4><div class="vchips">${voc.length?voc.map(v=>`<span class="vchip">${v}</span>`).join(""):'<span style="font-size:.85rem;color:var(--muted)">Use words like tackle, lead to, effective, prevent…</span>'}</div>
+ <h4>📑 Paragraphs</h4><div style="font-size:.86rem">${PARTS.map((p,i)=>`<div>${pc[i]?"✅":"⬜"} ${p[0].split(" — ")[0]}</div>`).join("")}</div>
+ <h4>🔍 Check these</h4><ul class="errs">${errs.length||dots?"":`<li class="none">✔ No common mistakes found</li>`}${dots?`<li>Replace every “…” with your own words.</li>`:""}${errs.slice(0,6).map(x=>`<li>${x.e.en}${x.n>1?` <b>(×${x.n})</b>`:""}<br><i style="color:var(--muted)">“${esc(x.s.length>70?x.s.slice(0,70)+"…":x.s)}”</i></li>`).join("")}</ul>`;
+ const ready=wc>=250&&used>=5&&!dots;
+ $("submitRow").innerHTML=st.submitted?`<button class="btn s" onclick="downloadPDF(this)">📄 Download Study Pack (PDF)</button><button class="btn s" onclick="download7()">⬇️ Download my essay (.txt)</button><button class="btn g" onclick="S.s7.submitted=false;renderS7()">✏️ Keep editing</button>`:
+ `<button class="btn p" ${ready?"":"disabled"} onclick="submit7()">🏁 Submit my essay</button><span style="font-size:.88rem;color:var(--muted);align-self:center">${ready?"Ready to submit!":`To submit: ${wc<250?`${250-wc} more words · `:""}${used<5?`use ${5-used} more structure${5-used>1?"s":""} · `:""}${dots?"fill in every … ":""}`.replace(/ · $/,"")}</span>`;
+ st._wc=wc;st._used=used;
+}
+function submit7(){const st=S.s7;st.submitted=true;st.words=st._wc;st.structs=st._used;addPts(100);renderS7();completeStage(6);setTimeout(()=>$("essayOut").scrollIntoView({behavior:"smooth"}),300)}
+function showEssay(){
+ const st=S.s7;$("essayOut").innerHTML=`<div class="card"><h3 style="color:var(--navy);margin-bottom:8px">🎉 Your essay</h3><div class="essayq" style="font-size:.95rem">${TOPICS[st.topic].q}</div>
+ <div class="assembled">${st.parts.filter(p=>p.trim()).map(p=>`<p style="margin-bottom:10px">${highlight(p)}</p>`).join("")}</div>${legendHTML()}
+ <p class="frame" style="margin-top:10px">Coloured sentences show the structures you used. Give this essay to your teacher for a band score.</p></div>`;
+}
+function download7(){const st=S.s7,T=TOPICS[st.topic];const body=`${S.name||"Student"} — IELTS Writing Task 2\n${new Date().toLocaleDateString("en-GB")}\n\nQuestion: ${T.q}\n\n${essayText()}\n\nWord count: ${words(essayText())}\n\nSolution Sentence Studio · Designed by: Nazila Motahari`;
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([body],{type:"text/plain"}));a.download=(S.name?S.name.replace(/\s+/g,"_")+"_":"")+"problem_solution_essay.txt";a.click();URL.revokeObjectURL(a.href)}
+
+/* ============ PROGRESS ============ */
+function renderProg(){
+ $("sname").value=S.name||"";
+ $("pPoints").textContent=S.points;$("pStages").textContent=S.done.filter(Boolean).length+"/7";
+ $("pWords").textContent=S.s7.submitted?words(essayText()):(S.s7.words||words(essayText()));
+ $("pStructs").textContent=(S.s7.structs||0)+"/6";
+ $("badges").innerHTML=BADGES.map((b,i)=>`<div class="badge${S.done[i]?" on":""}"><div class="i">${b[0]}</div><div class="n">${b[1]}</div><div style="font-size:.7rem;color:var(--muted)">Stage ${i+1}</div></div>`).join("");
+ renderCert();
+}
+function renderCert(){
+ const a=$("certArea");
+ if(S.done.every(Boolean)){const nm=esc(S.name||"Student Name");
+  a.innerHTML=`<div class="cert"><h3>🎓 Certificate of Achievement</h3><p>This certifies that</p><div class="nm">${nm}</div><p>has completed all seven stages of</p><p style="font-weight:800;color:var(--navy);font-size:1.1rem">Solution Sentence Studio</p><p>IELTS Writing Task 2 · Problem–Solution Essays</p><p>Essay: <b>${S.s7.words||0} words</b> · Structures used: <b>${S.s7.structs||0}/6</b> · Points: <b>${S.points}</b></p><p>Date: ${new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})}</p><div class="cr">Designed by: Nazila Motahari</div></div>
+  <div class="btnrow no-print" style="justify-content:center"><button class="btn p" onclick="printCert()">🖨️ Print certificate</button></div>`}
+ else a.innerHTML=`<p style="text-align:center;color:var(--muted)">🎓 Complete all 7 stages to unlock your certificate. (${S.done.filter(Boolean).length}/7 done)</p>`;
+}
+function printCert(){const v=$("v-prog");v.classList.add("print-me");window.print();setTimeout(()=>v.classList.remove("print-me"),500)}
+$("sname").oninput=e=>{S.name=e.target.value;renderCert()};
+$("saveBtn").onclick=()=>{S.name=$("sname").value.trim();const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:"application/json"}));a.download=(S.name?S.name.replace(/\s+/g,"_")+"_":"")+"solution_sentence_studio.json";a.click();URL.revokeObjectURL(a.href);toast("💾 Progress saved")};
+$("loadBtn").onclick=()=>$("loadFile").click();
+$("loadFile").onchange=ev=>{const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.done)||typeof d.points!=="number")throw 0;
+ const b=fresh();S=Object.assign(b,d);["s1","s2","s3","s4"].forEach(k=>S[k]=Object.assign(fresh()[k],d[k]||{}));
+ S.s5=Object.assign(fresh().s5,d.s5||{});TK.forEach(t=>{S.s5.ans[t]=S.s5.ans[t]||{};S.s5.ok[t]=S.s5.ok[t]||{}});
+ S.s6=Object.assign(fresh().s6,d.s6||{});S.s7=Object.assign(fresh().s7,d.s7||{});
+ tileState=null;hud();renderProg();toast("📂 Welcome back"+(S.name?", "+S.name:"")+"!")}catch(e){toast("✘ That is not a valid progress file")}};r.readAsText(f);ev.target.value=""};
+
+/* ============ PDF STUDY PACK (no libraries: canvas pages → JPEG → PDF) ============ */
+const VOC_AR={"issue":"قضية / مشكلة","challenge":"تحدٍّ","crisis":"أزمة","widespread":"واسع الانتشار","serious":"خطير / جِدّي","alarming":"مُقلق","harmful":"ضارّ","cause":"يُسبِّب / سبب","lead to":"يؤدي إلى","result in":"ينتج عنه","due to":"بسبب","factor":"عامل","lack of":"نقص في","solution":"حلّ","solve":"يحلّ","tackle":"يعالج / يتصدّى لـ","address":"يعالج / يتناول","reduce":"يُقلِّل","prevent":"يمنع","improve":"يُحسِّن","raise awareness":"ينشر الوعي","effect":"تأثير","impact":"أثر","consequence":"نتيجة / عاقبة","benefit":"فائدة","effective":"فعّال","government":"حكومة","individuals":"أفراد","society":"مجتمع","authorities":"سلطات","ban":"يحظر / حظر","encourage":"يشجِّع"};
+const MIST={modal:"✘ should builds · should to build   →   ✔ should build",solution:"✘ One solution is to raising · is ban   →   ✔ is to raise · is to ban",cond:"✘ If the city will build…   →   ✔ If the city builds…, people will…",cause:"✘ leads pollution · results obesity   →   ✔ leads to pollution · results in obesity",purpose:"✘ in order to reducing · in order save   →   ✔ in order to reduce · in order to save",passive:"✘ should banned · should be build   →   ✔ should be banned · should be built"};
+const HLC={modal:"#DCE4FB",solution:"#D7F1E5",cond:"#ECDDF7",cause:"#FDE3CF",purpose:"#D2EFF1",passive:"#FAD6E4"};
+const SC={modal:"#2B4BB8",solution:"#1F8A63",cond:"#7B3FA8",cause:"#C2560B",purpose:"#00838F",passive:"#C2185B"};
+const FF='"Segoe UI",Tahoma,Arial,sans-serif';
+class PDoc{
+ constructor(){this.W=1190;this.H=1684;this.M=88;this.pages=[];this.newPage()}
+ newPage(){const c=document.createElement("canvas");c.width=this.W;c.height=this.H;const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,this.W,this.H);x.textBaseline="alphabetic";this.pages.push(c);this.c=c;this.x=x;this.y=this.M}
+ get cw(){return this.W-2*this.M}
+ room(h){if(this.y+h>this.H-this.M-30)this.newPage()}
+ gap(h){this.y+=h}
+ font(sz,wt,it){this.x.font=`${it?"italic ":""}${wt||400} ${sz}px ${FF}`}
+ wrap(words,max,meas){const lines=[];let cur=[],w=0;for(const tk of words){const tw=meas(tk);if(cur.length&&w+tw>max&&tk.t.trim()){lines.push(cur);cur=[];w=0;if(!tk.t.trim())continue}cur.push(tk);w+=tw}if(cur.length)lines.push(cur);return lines}
+ rich(segs,o={}){const sz=o.size||24,lh=o.lh||sz*1.55,ind=o.indent||0,x=this.x;
+  const toks=[];segs.forEach(s=>String(s.t).split(/(\s+)/).filter(Boolean).forEach(t=>toks.push({t,s})));
+  const meas=tk=>{this.font(sz,tk.s.w||o.w,tk.s.i);return x.measureText(tk.t).width};
+  const lines=this.wrap(toks,this.cw-ind,meas);
+  for(const ln of lines){this.room(lh);let px=this.M+ind;const by=this.y+sz;
+   while(ln.length&&!ln[ln.length-1].t.trim())ln.pop();
+   ln.forEach((tk,j)=>{const tw=meas(tk);if(tk.s.bg){x.fillStyle=tk.s.bg;const nx=ln[j+1];const ext=(!tk.t.trim()&&(!nx||nx.s!==tk.s))?0:tw;x.fillRect(px,by-sz*0.92,ext,sz*1.3)}px+=tw});
+   px=this.M+ind;ln.forEach(tk=>{const tw=meas(tk);x.fillStyle=tk.s.c||o.c||"#1F2640";x.fillText(tk.t,px,by);px+=tw});
+   this.y+=lh}}
+ text(t,o={}){this.rich([{t}],o)}
+ ar(t,o={}){const sz=o.size||22,x=this.x;this.room(sz*1.6);this.font(sz,o.w||400);x.save();x.direction="rtl";x.textAlign="right";x.fillStyle=o.c||"#5B6485";x.fillText(t,this.W-this.M-(o.indent||0),this.y+sz);x.restore();this.y+=sz*1.6}
+ band(t,col,sub){this.room(110);const x=this.x;x.fillStyle=col;x.fillRect(this.M,this.y,this.cw,sub?84:64);this.font(32,800);x.fillStyle="#fff";x.fillText(t,this.M+22,this.y+44);if(sub){this.font(20,500);x.fillStyle="rgba(255,255,255,.85)";x.fillText(sub,this.M+22,this.y+72)}this.y+=(sub?84:64)+22}
+ h(t,col){this.room(70);this.font(26,800);this.x.fillStyle=col||"#1B2F6B";this.x.fillText(t,this.M,this.y+26);this.y+=34;this.x.fillStyle=col||"#1B2F6B";this.x.fillRect(this.M,this.y,60,4);this.y+=18}
+ chip(t,col){this.font(18,800);const w=this.x.measureText(t).width+24;this.room(40);this.x.fillStyle=col;this.x.beginPath();this.x.roundRect?this.x.roundRect(this.M,this.y,w,30,15):this.x.rect(this.M,this.y,w,30);this.x.fill();this.x.fillStyle="#fff";this.x.fillText(t,this.M+12,this.y+21);this.y+=40}
+ line(){this.room(20);this.x.fillStyle="#DCE3F5";this.x.fillRect(this.M,this.y+6,this.cw,2);this.y+=20}
+ footers(){this.pages.forEach((c,i)=>{const x=c.getContext("2d");x.font=`500 17px ${FF}`;x.fillStyle="#8A93B3";x.fillText("Solution Sentence Studio · Study Pack"+(S.name?" · "+S.name:""),this.M,this.H-48);x.textAlign="right";x.fillText(`Designed by: Nazila Motahari  ·  ${i+1}/${this.pages.length}`,this.W-this.M,this.H-48);x.textAlign="left"})}
+}
+const hlSegs=t=>sentences(t).map(s=>{const k=structOf(s);return {t:s+" ",bg:k?HLC[k]:null}});
+function b64bytes(d){const b=atob(d.split(",")[1]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+function makePDF(canvases){
+ const enc=s=>{const u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i)&255;return u};
+ const parts=[],offs=[];let len=0;const push=u=>{parts.push(u);len+=u.length};
+ const n=canvases.length,objs=2+n*3;
+ push(enc("%PDF-1.4\n%\xE2\xE3\xCF\xD3\n"));
+ const obj=(id,body,bin)=>{offs[id]=len;push(enc(id+" 0 obj\n"+body));if(bin){push(bin);push(enc("\nendstream"))}push(enc("\nendobj\n"))};
+ obj(1,"<< /Type /Catalog /Pages 2 0 R >>");
+ obj(2,`<< /Type /Pages /Count ${n} /Kids [${canvases.map((_,i)=>(3+i*3)+" 0 R").join(" ")}] >>`);
+ canvases.forEach((c,i)=>{const p=3+i*3,ct=p+1,im=p+2,jp=b64bytes(c.toDataURL("image/jpeg",0.82));const cs="q 595.28 0 0 841.89 0 0 cm /Im0 Do Q";
+  obj(p,`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /XObject << /Im0 ${im} 0 R >> >> /Contents ${ct} 0 R >>`);
+  obj(ct,`<< /Length ${cs.length} >>\nstream\n`,enc(cs));
+  obj(im,`<< /Type /XObject /Subtype /Image /Width ${c.width} /Height ${c.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jp.length} >>\nstream\n`,jp)});
+ const xo=len;let x=`xref\n0 ${objs+1}\n0000000000 65535 f \n`;for(let i=1;i<=objs;i++)x+=String(offs[i]).padStart(10,"0")+" 00000 n \n";
+ push(enc(x+`trailer\n<< /Size ${objs+1} /Root 1 0 R >>\nstartxref\n${xo}\n%%EOF`));
+ return new Blob(parts,{type:"application/pdf"});
+}
+function buildStudyPack(){
+ const d=new PDoc(),nm=S.name||$("sname").value.trim()||"";
+ // cover
+ d.x.fillStyle="#1B2F6B";d.x.fillRect(0,0,d.W,330);d.x.fillStyle="#C2185B";d.x.fillRect(0,330,d.W,10);
+ d.font(58,800);d.x.fillStyle="#fff";d.x.fillText("Solution Sentence Studio",d.M,150);
+ d.font(30,500);d.x.fillStyle="#FFC6DC";d.x.fillText("My Study Pack · IELTS Writing Task 2 · Problem–Solution",d.M,205);
+ d.font(24,500);d.x.fillStyle="rgba(255,255,255,.85)";d.x.fillText((nm?nm+"  ·  ":"")+new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}),d.M,260);
+ d.y=390;d.h("My progress");
+ d.text(`⭐ Points: ${S.points}     📈 Stages complete: ${S.done.filter(Boolean).length}/7`,{size:24,w:700});d.gap(6);
+ STAGES.forEach((s,i)=>d.text(`${S.done[i]?"✅":"⬜"}  Stage ${s.n}: ${s.t} — ${s.d}`,{size:21,indent:10}));
+ d.gap(16);d.h("What is inside");
+ ["1. The 6 sentence structures + common mistakes","2. Linking words","3. My sentences from Stages 1–4","4. My problem–solution sentences (Stage 5)","5. My paragraphs (Stage 6)","6. My essays (Stage 7)","7. The 32 key words with Arabic meanings"].forEach(t=>d.text(t,{size:21,indent:10}));
+ d.gap(14);d.text("Colour key — each coloured sentence shows a structure:",{size:20,w:700});
+ d.rich(SKEYS.map(k=>({t:" "+ST[k].name+" ",bg:HLC[k]})).flatMap(s=>[s,{t:"   "}]),{size:19});
+ // structures
+ d.newPage();d.band("1. The 6 sentence structures","#2B4BB8","Use these in every problem–solution essay");
+ SKEYS.forEach(k=>{d.room(230);d.chip(ST[k].name,SC[k]);d.text("Pattern: "+ST[k].pat,{size:22,w:700,c:SC[k]});d.rich([{t:"Example: ",w:700},{t:ST[k].ex,bg:HLC[k]}],{size:21});d.text(MIST[k],{size:19,c:"#8E2323"});d.ar(ST[k].ar,{size:20});d.gap(10)});
+ d.h("2. Linking words");
+ [["Give an example","For example, … / For instance, …"],["Show a result","As a result, … / Consequently, … / This means that …"],["Add an idea","In addition, … / Another solution is to …"],["Introduce the essay","Nowadays, … This essay will discuss …"],["Conclude","In conclusion, … In my opinion, the most effective solution is to …"]].forEach(([a,b])=>d.rich([{t:a+":  ",w:700,c:"#1B2F6B"},{t:b}],{size:20}));
+ // stages 1-4
+ d.newPage();d.band("3. My sentences — Stages 1 to 4","#C2185B","Model sentences, corrections and my own ideas");
+ d.h("Stage 1 · Build — model sentences");
+ S1.forEach(([k,s],i)=>d.rich([{t:(S.s1.ok[i]?"✓ ":"○ "),c:S.s1.ok[i]?"#1F8A63":"#8A93B3",w:800},{t:s,bg:HLC[k]}],{size:20,lh:34}));
+ d.gap(10);d.h("Stage 2 · Fix — mistakes and corrections");
+ S2.forEach(([k,w,b,acc,rule])=>{d.room(100);d.rich([{t:"✘ ",c:"#D03A3A",w:800},{t:w,c:"#8E2323",i:1}],{size:20,lh:32});  d.rich([{t:"✔ ",c:"#1F8A63",w:800},{t:S2OK[S2.findIndex(x=>x[1]===w)],w:600},{t:"   ("+rule+")",c:"#5B6485"}],{size:20,lh:32,indent:0});d.gap(6)});
+ d.gap(6);d.h("Stage 3 · Finish — my own endings");
+ S3.forEach(([k,st,mw,model],i)=>{const a=(S.s3.ans[i]||"").trim();d.room(70);
+  if(S.s3.ok[i])d.rich([{t:"✓ ",c:"#1F8A63",w:800},{t:st+" "+a,bg:HLC[k]}],{size:20,lh:34});
+  else d.rich([{t:"○ ",c:"#8A93B3",w:800},{t:st+" ",w:600},{t:a?a+"  (not checked yet)":"……………………   ",c:"#8A93B3"},{t:a?"":"Example: "+model.replace(/^…/,""),c:"#5B6485",i:1}],{size:20,lh:34})});
+ d.gap(10);d.h("Stage 4 · Transform");
+ S4.forEach((it,i)=>{const a=(S.s4.ans[i]||"").trim();d.room(120);d.text(it.i,{size:18,w:700,c:SC[it.k]});d.text("Original:  "+it.src,{size:20});
+  if(a)d.rich([{t:"Mine:  ",w:700},{t:a,bg:S.s4.ok[i]?HLC[it.k]:null},{t:S.s4.ok[i]?"  ✓":"  (not checked yet)",c:S.s4.ok[i]?"#1F8A63":"#8A93B3"}],{size:20});
+  d.rich([{t:"Model:  ",w:700,c:"#7B3FA8"},{t:it.m,c:"#7B3FA8"}],{size:20});d.gap(8)});
+ // stage 5
+ d.newPage();d.band("4. Problem → Solution sentences (Stage 5)","#1F8A63","Six sentences about one real problem");
+ let any5=false;
+ TK.forEach(tk=>{const a=S.s5.ans[tk],T=TOPICS[tk];if(!S5ORDER.some(k=>(a[k]||"").trim()))return;any5=true;
+  d.h(T.t,"#1F8A63");d.ar(T.ar,{size:20});
+  S5ORDER.forEach(k=>{const v=(a[k]||"").trim();if(!v)return;d.rich([{t:(S.s5.ok[tk][k]?"✓ ":"○ "),c:S.s5.ok[tk][k]?"#1F8A63":"#8A93B3",w:800},{t:ST[k].name+":  ",w:700,c:SC[k]},{t:v,bg:HLC[k]}],{size:20,lh:34})});d.gap(12)});
+ if(!any5){d.text("You have not written Stage 5 sentences yet. Here are the idea boxes to help you:",{size:20,c:"#5B6485"});}
+ d.gap(6);d.h("Idea boxes for every topic");
+ TK.forEach(tk=>{const T=TOPICS[tk];d.room(170);d.text(T.t+"  ",{size:21,w:800});
+  [["Problem",T.f.p,"#D03A3A"],["Causes",T.f.c,"#C2560B"],["Solutions",T.f.s,"#1F8A63"],["Results",T.f.r,"#7B3FA8"]].forEach(([l,v,c])=>d.rich([{t:l+": ",w:700,c},{t:v}],{size:19,lh:30,indent:16}));
+  d.rich([{t:"Useful words: ",w:700,c:"#1B2F6B"},{t:T.w.join(" · ")}],{size:19,lh:30,indent:16});d.gap(8)});
+ // stage 6
+ d.newPage();d.band("5. My paragraphs (Stage 6)","#7B3FA8","Body paragraph 1: problem and causes · Body paragraph 2: solutions");
+ let any6=false;
+ TK.forEach(tk=>{const a=s6For(tk).ans;const p1=P6.b1.map(s=>(a.b1[s.id]||"").trim()).filter(Boolean).join(" "),p2=P6.b2.map(s=>(a.b2[s.id]||"").trim()).filter(Boolean).join(" ");
+  if(!p1&&!p2)return;any6=true;d.h(TOPICS[tk].t,"#7B3FA8");
+  if(p1){d.text("Body paragraph 1 — The problem and its causes",{size:19,w:700,c:"#5B6485"});d.rich(hlSegs(p1),{size:21,lh:36});d.gap(8)}
+  if(p2){d.text("Body paragraph 2 — Solutions",{size:19,w:700,c:"#5B6485"});d.rich(hlSegs(p2),{size:21,lh:36})}d.gap(14)});
+ if(!any6){d.text("You have not written paragraphs yet. Use these frames:",{size:20,c:"#5B6485"});}
+ d.gap(4);d.h("Paragraph frames");
+ [["Body 1",P6.b1],["Body 2",P6.b2]].forEach(([n,arr])=>{d.text(n,{size:20,w:800});arr.forEach((s,i)=>d.text(`${i+1}. ${s.l}:  `+s.fr.replace(/<\/?code>/g,"").replace(/&lt;|&gt;/g,""),{size:19,indent:16,lh:30}))});
+ // stage 7
+ d.newPage();d.band("6. My essays (Stage 7)","#1B2F6B","Problem–solution essays · 250+ words");
+ let any7=false;
+ TK.forEach(tk=>{const e=s7For(tk),txt=e.parts.map(p=>p.trim()).filter(Boolean);if(!txt.length)return;any7=true;
+  d.h(TOPICS[tk].t+(e.submitted?"  ✓ submitted":"  (draft)"),"#1B2F6B");
+  d.rich([{t:"Question: ",w:700},{t:TOPICS[tk].q,i:1}],{size:20,c:"#5B6485"});d.gap(8);
+  e.parts.forEach((p,i)=>{if(!p.trim())return;d.text(PARTS[i][0],{size:18,w:700,c:"#C2185B"});d.rich(hlSegs(p.trim()),{size:21,lh:36});d.gap(10)});
+  d.text(`Word count: ${words(txt.join(" "))}`,{size:19,w:700,c:"#5B6485"});d.line()});
+ if(!any7){d.text("You have not started an essay yet. Use the hints below to plan it.",{size:20,c:"#5B6485"});d.gap(4);
+  }
+ d.gap(6);d.h("Hints: introduction and conclusion");
+ [0,3].forEach(i=>{const H=HINTS[i];d.text(H.title,{size:21,w:800});d.ar(H.ar,{size:19});H.moves.forEach((m,j)=>{d.rich([{t:`${j+1}. ${m[0]}: `,w:700,c:"#C2185B"},{t:m[1]}],{size:19,lh:30,indent:10});d.rich([{t:"Start with: ",w:600,c:"#5B6485"},{t:m[2],i:1,c:"#1B2F6B"}],{size:18,lh:28,indent:34});d.ar(m[3],{size:17})});d.gap(10)})
+ // vocab
+ d.newPage();d.band("7. The 32 key words","#C2560B","Problem–solution vocabulary with Arabic meanings");
+ const col=(d.cw-20)/2;let i=0;
+ for(const [w] of VOCAB){d.room(46);if(i%2===0&&i>0){}const xL=d.M+(i%2)*(col+20);const yy=d.y;
+  d.x.fillStyle=i%4<2?"#F4F6FC":"#fff";d.x.fillRect(xL,yy,col,42);d.font(21,700);d.x.fillStyle="#1B2F6B";d.x.fillText(w,xL+14,yy+29);
+  d.x.save();d.x.direction="rtl";d.x.textAlign="right";d.font(20,500);d.x.fillStyle="#C2185B";d.x.fillText(VOC_AR[w]||"",xL+col-14,yy+29);d.x.restore();
+  if(i%2===1)d.y+=46;i++}
+ d.footers();return d.pages;
+}
+const S2OK=["The government should build more parks.","People must recycle their plastic bottles.","If the city builds more bus lanes, traffic will decrease.","If schools teach cooking, students will eat healthier food.","One solution is to raise awareness in schools.","Another solution is to ban plastic bags.","Heavy traffic leads to air pollution.","A lack of exercise results in obesity.","In order to reduce pollution, people should cycle.","In order to save money, families should cook at home.","Smoking should be banned in public places.","More hospitals should be built in small towns."];
+function downloadPDF(btn){
+ S.name=$("sname").value.trim()||S.name;toast("📄 Preparing your study pack…");
+ if(btn)btn.disabled=true;
+ setTimeout(()=>{try{const blob=makePDF(buildStudyPack());const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=(S.name?S.name.replace(/\s+/g,"_")+"_":"")+"Study_Pack_Problem_Solution.pdf";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);toast("✅ PDF downloaded")}catch(e){console.error(e);toast("✘ Could not make the PDF: "+e.message)}if(btn)btn.disabled=false},60);
+}
+
+/* ============ DRAWER ============ */
+$("refList").innerHTML=SKEYS.map(k=>`<div class="ref" style="border-color:var(--c-${k})"><b style="color:var(--c-${k})">${ST[k].name}</b><div class="pat">${ST[k].pat}</div><div class="ex">${ST[k].ex}</div><div class="ar" style="font-size:.85rem;color:var(--muted);margin-top:3px">${ST[k].ar}</div></div>`).join("")+
+`<div class="ref" style="border-color:var(--navy)"><b>Linking words</b><div class="pat">For example, … · As a result, … · In addition, … · This means that … · In conclusion, …</div></div>`;
+$("fab").onclick=()=>$("drawer").classList.add("open");
+$("dclose").onclick=()=>$("drawer").classList.remove("open");
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("drawer").classList.remove("open")});
+
+/* ============ INIT ============ */
+hud();renderMap();
+</script>
+</body>
+</html>
